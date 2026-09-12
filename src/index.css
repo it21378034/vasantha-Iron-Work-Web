@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ─── Global Design Tokens ─── */
+:root {
+  --orange: #f97316;
+  --orange-dark: #ea580c;
+  --orange-light: #fed7aa;
+  --slate-hero: #090d16;
+  --card-bg: #ffffff;
+  --section-alt: #f8fafc;
+}
+
+/* ─── Premium Section Divider ─── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #e2e8f0 20%, #e2e8f0 80%, transparent 100%);
+}
+
+/* ─── Orange Gradient Text ─── */
+.text-orange-gradient {
+  background: linear-gradient(135deg, #ea580c 0%, #f97316 50%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Premium Card Shadow ─── */
+.card-premium {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 1px 3px rgba(15,23,42,0.04), 0 8px 24px -4px rgba(15,23,42,0.06);
+  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+.card-premium:hover {
+  border-color: rgba(249,115,22,0.3);
+  box-shadow: 0 4px 6px rgba(15,23,42,0.04), 0 20px 48px -8px rgba(249,115,22,0.18);
+  transform: translateY(-4px);
+}
+
+/* ─── Section Badge ─── */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #c2410c;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ─── Orange Glow Button ─── */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #ea580c, #f97316, #fb923c);
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(249,115,22,0.35);
+  transition: all 0.3s ease;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-primary:hover::before { left: 100%; }
+.btn-primary:hover {
+  box-shadow: 0 8px 25px rgba(249,115,22,0.5);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: white;
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 14px;
+  border: 2px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: #f97316;
+  color: #ea580c;
+  background: #fff7ed;
+  transform: translateY(-2px);
+}
+
+/* ─── Welding Arc Pulse ─── */
+@keyframes weldingArc {
+  0%, 100% { opacity: 0.3; filter: drop-shadow(0 0 10px rgba(249,115,22,0.6)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 28px rgba(249,115,22,1)) drop-shadow(0 0 50px rgba(56,189,248,0.7)); }
+}
+.animate-welding-arc { animation: weldingArc 2.5s ease-in-out infinite; }
+
+/* ─── Float Up Animation ─── */
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float { animation: floatUp 4s ease-in-out infinite; }
+
+/* ─── Shimmer Loading ─── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer-line {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ─── Number Counter Gradient ─── */
+.stat-number {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── Section Wave Divider ─── */
+.wave-bg {
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+}
+
+/* ─── Timeline Connector ─── */
+.timeline-connector {
+  background: linear-gradient(180deg, #f97316 0%, #fbbf24 100%);
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; height: 8px; }
+::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 9999px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #f97316; }
+
+.project-scroller::-webkit-scrollbar { display: none; }
+.project-scroller {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─── Focus Ring ─── */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #f97316 !important;
+  box-shadow: 0 0 0 4px rgba(249,115,22,0.1) !important;
+}
