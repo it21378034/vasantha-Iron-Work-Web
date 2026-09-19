@@ -23,7 +23,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       icon: DoorOpen,
       image: '/images/custom_iron_gate.png',
       description: 'Strong and stylish iron gates engineered for security, durability, and stunning curb appeal.',
-      features: ['Driveway Main Gates', 'Security Pedestrian Gates', 'Wrought Iron & Automated Gates'],
+      features: ['Driveway Main Gates', 'Sliding & Folding Gates', 'Custom Swing Security Gates'],
       accent: 'from-amber-500 to-yellow-500',
       light: 'bg-amber-50 border-amber-100 text-amber-600',
     },

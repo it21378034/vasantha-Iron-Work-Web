@@ -59,6 +59,20 @@ export const Gallery: React.FC = () => {
 
   const items: GalleryItem[] = [
     { id: 1, title: 'Custom Matte Black Main Entrance Gate', category: 'Gates', slug: 'gates', image: '/images/custom_iron_gate.png', description: 'A custom-built double-swing main entrance driveway gate fabricated from heavy structural steel tubing and plates. Finished with a weather-resistant matte black coating, it features decorative 3D geometric pyramid panels, chrome boss accents, sturdy vertical security bars, and solid welded latch handles for maximum residential boundary protection.', tag: 'Heavy Gauge Steel' },
+    {
+      id: 14,
+      title: 'Multi-Panel Folding Sliding Security Gate',
+      category: 'Gates',
+      slug: 'gates',
+      image: '/images/sliding_folding_gate_combined.jpg',
+      photos: [
+        '/images/sliding_folding_gate_combined.jpg',
+        '/images/sliding_folding_gate_closed.jpg',
+        '/images/sliding_folding_gate_folded.jpg',
+      ],
+      description: 'Custom heavy-duty accordion-style multi-panel folding sliding security gate fabricated from black steel box sections with overhead track support and smooth roller mechanisms, designed for maximum driveway opening clearance and robust perimeter protection.',
+      tag: 'Sliding System',
+    },
     { id: 2, title: 'Modern Security Window Grill', category: 'Iron Grills', slug: 'grills', image: '/images/custom_window_grill_2.png', description: 'High-strength steel window security grill designed for residential architectural aesthetics.', tag: 'Corrosion Resistant' },
     {
       id: 13,
