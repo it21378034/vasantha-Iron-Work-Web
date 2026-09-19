@@ -7,6 +7,7 @@ interface GalleryItem {
   category: string;
   slug: string;
   image: string;
+  photos?: string[];
   description: string;
   tag: string;
 }
@@ -19,6 +20,7 @@ interface ProjectPhoto {
 export const Gallery: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [selected, setSelected] = useState<GalleryItem | null>(null);
+  const [selectedPhotoIdx, setSelectedPhotoIdx] = useState(0);
   const [schoolPhoto, setSchoolPhoto] = useState<ProjectPhoto | null>(null);
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -60,6 +62,22 @@ export const Gallery: React.FC = () => {
     { id: 1, title: 'Custom Matte Black Main Entrance Gate', category: 'Gates', slug: 'gates', image: '/images/custom_iron_gate.png', description: 'A custom-built double-swing main entrance driveway gate fabricated from heavy structural steel tubing and plates. Finished with a weather-resistant matte black coating, it features decorative 3D geometric pyramid panels, chrome boss accents, sturdy vertical security bars, and solid welded latch handles for maximum residential boundary protection.', tag: 'Heavy Gauge Steel' },
     { id: 2, title: 'Modern Security Window Grill', category: 'Iron Grills', slug: 'grills', image: '/images/custom_window_grill_2.png', description: 'High-strength steel window security grill designed for residential architectural aesthetics.', tag: 'Corrosion Resistant' },
     { id: 3, title: 'Heavy Structural Steel Roof Truss', category: 'Roofing', slug: 'roofing', image: '/images/roofing_structure.jpg', description: 'Welded steel roof truss framework engineered for commercial and industrial structures.', tag: 'Load Bearing' },
+    {
+      id: 12,
+      title: 'Modern Wood-Finish Panel Ceiling with Recessed LED Lighting',
+      category: 'Ceiling Structures',
+      slug: 'ceiling-structures',
+      image: '/images/ceiling_project_completed.jpg',
+      photos: [
+        '/images/ceiling_project_completed.jpg',
+        '/images/ceiling_wood_finish_1.jpg',
+        '/images/ceiling_wood_finish_2.jpg',
+        '/images/ceiling_wood_finish_3.jpg',
+        '/images/ceiling_wood_finish_4.jpg',
+      ],
+      description: 'A completed residential & commercial ceiling installation featuring premium wood-grain finish modular ceiling panels, durable metal framing structure, and neatly embedded circular LED downlights for a warm, modern aesthetic.',
+      tag: 'Completed Work',
+    },
     { id: 4, title: 'Exposed Steel Ceiling Framework', category: 'Ceiling Structures', slug: 'ceiling-structures', image: '/images/ceiling_structure.jpg', description: 'Industrial structural ceiling beam installation with precision welded cross bracing.', tag: 'Commercial Grade' },
     { id: 5, title: 'Veranda Safety Railing', category: 'Hand Railings', slug: 'hand-railings', image: '/images/hand_railing_project.jpg', description: 'A precision-fabricated black steel veranda safety railing featuring modern vertical bars and an integrated swing gate. Constructed using 2 × 2 box bars and ¾ × ¾ box bars, the railing provides enhanced safety, durability, and a clean contemporary appearance, making it a practical and stylish addition to any home veranda.', tag: 'Heavy Gauge Steel' },
     { id: 6, title: 'Arc Welding Custom Fabrication', category: 'Custom Work', slug: 'custom-ironworks', image: '/images/hero_welding.jpg', description: 'Arc welding steel beam joinery crafted to custom client specifications in our workshop.', tag: 'Custom Build' },
@@ -329,7 +347,10 @@ export const Gallery: React.FC = () => {
           {filtered.map((item) => (
             <div
               key={item.id}
-              onClick={() => setSelected(item)}
+              onClick={() => {
+                setSelected(item);
+                setSelectedPhotoIdx(0);
+              }}
               className="w-[85vw] sm:w-[350px] md:w-[380px] shrink-0 snap-start group relative rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1.5 bg-white border border-slate-200"
             >
               <div className="relative h-64 sm:h-72 overflow-hidden bg-slate-100">
@@ -475,9 +496,31 @@ export const Gallery: React.FC = () => {
             <button onClick={() => setSelected(null)} className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-orange-600 transition-colors shadow-lg">
               <X className="w-5 h-5" />
             </button>
-            <div className="h-[300px] sm:h-[450px] bg-slate-50">
-              <img src={selected.image} alt={selected.title} className="w-full h-full object-contain" />
+            <div className="h-[300px] sm:h-[450px] bg-slate-950 flex items-center justify-center overflow-hidden">
+              <img
+                src={selected.photos && selected.photos[selectedPhotoIdx] ? selected.photos[selectedPhotoIdx] : selected.image}
+                alt={selected.title}
+                className="w-full h-full object-contain"
+              />
             </div>
+            {/* Multiple Photos Thumbnail Strip */}
+            {selected.photos && selected.photos.length > 1 && (
+              <div className="bg-slate-900 px-6 py-2.5 border-t border-slate-800 flex items-center justify-center gap-2.5 overflow-x-auto">
+                {selected.photos.map((photoSrc, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedPhotoIdx(idx)}
+                    className={`h-12 w-16 sm:w-20 rounded-lg overflow-hidden border-2 transition-all shrink-0 ${
+                      selectedPhotoIdx === idx
+                        ? 'border-orange-500 scale-105 shadow-md shadow-orange-500/40'
+                        : 'border-slate-700 opacity-60 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={photoSrc} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
             <div className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-1">
