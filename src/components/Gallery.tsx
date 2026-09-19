@@ -55,7 +55,6 @@ export const Gallery: React.FC = () => {
     { label: 'Ceiling Structures', value: 'ceiling-structures' },
     { label: 'Hand Railings', value: 'hand-railings' },
     { label: 'Outdoor Furniture', value: 'outdoor-furniture' },
-    { label: 'Custom Work', value: 'custom-ironworks' },
   ];
 
   const items: GalleryItem[] = [
@@ -77,7 +76,6 @@ export const Gallery: React.FC = () => {
       description: 'Custom-fitted solid steel window security grill engineered with precision clearances for wooden window frames, handles, and stays — delivering dependable home security while preserving outdoor visibility and aesthetic charm.',
       tag: 'Precision Fit',
     },
-    { id: 3, title: 'Heavy Structural Steel Roof Truss', category: 'Roofing', slug: 'roofing', image: '/images/roofing_structure.jpg', description: 'Welded steel roof truss framework engineered for commercial and industrial structures.', tag: 'Load Bearing' },
     {
       id: 12,
       title: 'Modern Wood-Finish Panel Ceiling with Recessed LED Lighting',
@@ -94,7 +92,6 @@ export const Gallery: React.FC = () => {
       description: 'A completed residential & commercial ceiling installation featuring premium wood-grain finish modular ceiling panels, durable metal framing structure, and neatly embedded circular LED downlights for a warm, modern aesthetic.',
       tag: 'Completed Work',
     },
-    { id: 4, title: 'Exposed Steel Ceiling Framework', category: 'Ceiling Structures', slug: 'ceiling-structures', image: '/images/ceiling_structure.jpg', description: 'Industrial structural ceiling beam installation with precision welded cross bracing.', tag: 'Commercial Grade' },
     {
       id: 5,
       title: 'Veranda Safety Railing with Swing Gate',
@@ -108,7 +105,6 @@ export const Gallery: React.FC = () => {
       description: 'A precision-fabricated black steel veranda safety railing featuring modern vertical bars and an integrated swing gate. Constructed using 2 × 2 box bars and ¾ × ¾ box bars, the railing provides enhanced safety, durability, and a clean contemporary appearance, making it a practical and stylish addition to any home veranda.',
       tag: 'Heavy Gauge Steel',
     },
-    { id: 6, title: 'Arc Welding Custom Fabrication', category: 'Custom Work', slug: 'custom-ironworks', image: '/images/hero_welding.jpg', description: 'Arc welding steel beam joinery crafted to custom client specifications in our workshop.', tag: 'Custom Build' },
     { id: 7, title: 'Small Vehicle Parking Canopy', category: 'Roofing', slug: 'roofing', image: '/images/parking_roof.jpg', description: 'A durable small vehicle parking structure designed with a strong steel frame and a protective roofing canopy. The structure is constructed using 2 × 2 box bars (4.7 mm thickness), GI pipes, and Amano roofing sheets, providing reliable support, weather protection, and long-lasting performance. It is suitable for protecting vehicles from sun and rain while maintaining a neat and practical appearance.', tag: 'Weather Protection' },
     { id: 8, title: 'Stainless Steel Staircase & Landing Railing', category: 'Hand Railings', slug: 'hand-railings', image: '/images/stainless_steel_stair_railing.jpg', description: 'A contemporary indoor stainless steel staircase and landing hand railing fabricated with durable stainless steel square tubing and vertical balusters. Delivers long-lasting rust-free durability, clean modern elegance, and reliable fall protection for homes and multi-story spaces.', tag: 'Stainless Steel' },
     { id: 10, title: 'Heavy-Duty Security Iron Grill', category: 'Iron Grills', slug: 'grills', image: '/images/iron_grill.jpg', description: 'Reinforced solid bar window grill offering maximum residential and business security.', tag: 'Maximum Security' },
