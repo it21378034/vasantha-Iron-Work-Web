@@ -61,6 +61,22 @@ export const Gallery: React.FC = () => {
   const items: GalleryItem[] = [
     { id: 1, title: 'Custom Matte Black Main Entrance Gate', category: 'Gates', slug: 'gates', image: '/images/custom_iron_gate.png', description: 'A custom-built double-swing main entrance driveway gate fabricated from heavy structural steel tubing and plates. Finished with a weather-resistant matte black coating, it features decorative 3D geometric pyramid panels, chrome boss accents, sturdy vertical security bars, and solid welded latch handles for maximum residential boundary protection.', tag: 'Heavy Gauge Steel' },
     { id: 2, title: 'Modern Security Window Grill', category: 'Iron Grills', slug: 'grills', image: '/images/custom_window_grill_2.png', description: 'High-strength steel window security grill designed for residential architectural aesthetics.', tag: 'Corrosion Resistant' },
+    {
+      id: 13,
+      title: 'Custom Wooden Window Security Iron Grill',
+      category: 'Iron Grills',
+      slug: 'grills',
+      image: '/images/custom_window_grill_wood_frame.jpg',
+      photos: [
+        '/images/custom_window_grill_wood_frame.jpg',
+        '/images/window_grill_wood_1.jpg',
+        '/images/window_grill_wood_2.jpg',
+        '/images/window_grill_wood_3.jpg',
+        '/images/window_grill_wood_4.jpg',
+      ],
+      description: 'Custom-fitted solid steel window security grill engineered with precision clearances for wooden window frames, handles, and stays — delivering dependable home security while preserving outdoor visibility and aesthetic charm.',
+      tag: 'Precision Fit',
+    },
     { id: 3, title: 'Heavy Structural Steel Roof Truss', category: 'Roofing', slug: 'roofing', image: '/images/roofing_structure.jpg', description: 'Welded steel roof truss framework engineered for commercial and industrial structures.', tag: 'Load Bearing' },
     {
       id: 12,
