@@ -64,8 +64,11 @@ export const Gallery: React.FC = () => {
       title: 'Multi-Panel Folding Sliding Security Gate',
       category: 'Gates',
       slug: 'gates',
-      image: '/images/sliding_gate_new_1.jpg',
+      image: '/images/sliding_gate_new_6.jpg',
       photos: [
+        '/images/sliding_gate_new_6.jpg',
+        '/images/sliding_gate_new_7.jpg',
+        '/images/sliding_gate_new_8.jpg',
         '/images/sliding_gate_new_1.jpg',
         '/images/sliding_gate_new_2.jpg',
         '/images/sliding_gate_new_3.jpg',
