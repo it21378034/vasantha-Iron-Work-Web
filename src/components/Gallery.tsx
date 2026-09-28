@@ -59,6 +59,8 @@ export const Gallery: React.FC = () => {
 
   const items: GalleryItem[] = [
     { id: 1, title: 'Custom Matte Black Main Entrance Gate', category: 'Gates', slug: 'gates', image: '/images/custom_iron_gate.png', description: 'A custom-built double-swing main entrance driveway gate fabricated from heavy structural steel tubing and plates. Finished with a weather-resistant matte black coating, it features decorative 3D geometric pyramid panels, chrome boss accents, sturdy vertical security bars, and solid welded latch handles for maximum residential boundary protection.', tag: 'Heavy Gauge Steel' },
+    { id: 15, title: 'Green Corrugated Steel Sliding Gate', category: 'Gates', slug: 'gates', image: '/images/gate_green_sliding.jpg', description: 'A heavy-duty sliding gate fabricated from corrugated green steel sheets mounted on a solid black steel box-section frame. Features smooth bottom roller wheels on a ground track rail for effortless sliding operation. Designed to provide maximum security and weather resistance for residential and commercial driveways.', tag: 'Sliding Gate' },
+    { id: 16, title: 'Black Corrugated Steel Double Swing Gate', category: 'Gates', slug: 'gates', image: '/images/gate_black_double.jpg', description: 'A robust double-leaf swing gate constructed from black corrugated steel sheets within a reinforced black steel frame. Fitted with heavy-duty hinges, a central latch bolt lock, and decorative chrome handles. Installed between stone walls, this gate offers strong perimeter security with a clean, bold aesthetic finish.', tag: 'Double Swing' },
     {
       id: 14,
       title: 'Multi-Panel Folding Sliding Security Gate',
