@@ -31,6 +31,9 @@ export const Gallery: React.FC = () => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
+  const showcaseScrollRef = useRef<HTMLDivElement>(null);
+  const [activeShowcaseIdx, setActiveShowcaseIdx] = useState(0);
+
   const cabanaPhotos: ProjectPhoto[] = [
     {
       image: '/images/cabana_roofing_w1.jpg',
@@ -240,6 +243,30 @@ export const Gallery: React.FC = () => {
     }
   };
 
+  const handleShowcaseScroll = (direction: 'left' | 'right') => {
+    const newIdx = direction === 'left' ? Math.max(0, activeShowcaseIdx - 1) : Math.min(1, activeShowcaseIdx + 1);
+    scrollToShowcase(newIdx);
+  };
+
+  const scrollToShowcase = (index: number) => {
+    if (!showcaseScrollRef.current) return;
+    setActiveShowcaseIdx(index);
+    const width = showcaseScrollRef.current.clientWidth;
+    showcaseScrollRef.current.scrollTo({
+      left: index * (width + 32),
+      behavior: 'smooth',
+    });
+  };
+
+  const handleShowcaseScrollEvent = () => {
+    if (!showcaseScrollRef.current) return;
+    const { scrollLeft, clientWidth } = showcaseScrollRef.current;
+    if (clientWidth > 0) {
+      const index = Math.round(scrollLeft / (clientWidth + 32));
+      setActiveShowcaseIdx(Math.min(1, Math.max(0, index)));
+    }
+  };
+
   return (
     <section id="gallery" className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -258,10 +285,78 @@ export const Gallery: React.FC = () => {
           </p>
         </div>
 
-        {/* ═══════════════════════════════════════════════════════════════════════ */}
-        {/* ─── FEATURED PROJECT 1: Porawagala (Bandarawela) Cabana Roofing ──── */}
-        {/* ═══════════════════════════════════════════════════════════════════════ */}
-        <div className="mb-14 rounded-3xl overflow-hidden border border-emerald-200/80 shadow-2xl bg-white">
+        {/* ─── Showcase Scroller Navigation & Controls ─── */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+          <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-slate-100 border border-slate-200">
+            <button
+              onClick={() => scrollToShowcase(0)}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                activeShowcaseIdx === 0
+                  ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+              }`}
+            >
+              <span className={`w-2 h-2 rounded-full ${activeShowcaseIdx === 0 ? 'bg-white animate-pulse' : 'bg-emerald-500'}`} />
+              <span>Project 1: Porawagala Cabana (W1–W6)</span>
+            </button>
+            <button
+              onClick={() => scrollToShowcase(1)}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                activeShowcaseIdx === 1
+                  ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+              }`}
+            >
+              <span className={`w-2 h-2 rounded-full ${activeShowcaseIdx === 1 ? 'bg-white' : 'bg-orange-500'}`} />
+              <span>Project 2: B/Athalapitiya School</span>
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <span className="text-xs font-bold text-slate-500 mr-1">
+              Project {activeShowcaseIdx + 1} of 2
+            </span>
+            <button
+              onClick={() => handleShowcaseScroll('left')}
+              disabled={activeShowcaseIdx === 0}
+              className={`p-2.5 rounded-xl border transition-all flex items-center justify-center ${
+                activeShowcaseIdx > 0
+                  ? 'bg-white border-slate-300 text-slate-800 hover:bg-emerald-50 hover:border-emerald-300 hover:text-emerald-600 shadow-sm active:scale-95'
+                  : 'bg-slate-100 border-slate-200 text-slate-300 cursor-not-allowed'
+              }`}
+              title="Previous Showcase Project"
+              aria-label="Previous Showcase Project"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => handleShowcaseScroll('right')}
+              disabled={activeShowcaseIdx === 1}
+              className={`p-2.5 rounded-xl border transition-all flex items-center justify-center ${
+                activeShowcaseIdx < 1
+                  ? 'bg-white border-slate-300 text-slate-800 hover:bg-emerald-50 hover:border-emerald-300 hover:text-emerald-600 shadow-sm active:scale-95'
+                  : 'bg-slate-100 border-slate-200 text-slate-300 cursor-not-allowed'
+              }`}
+              title="Next Showcase Project"
+              aria-label="Next Showcase Project"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* ─── Showcase Scroller Container ─── */}
+        <div
+          ref={showcaseScrollRef}
+          onScroll={handleShowcaseScrollEvent}
+          className="flex gap-8 overflow-x-auto pb-4 pt-1 scroll-smooth snap-x snap-mandatory no-scrollbar"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {/* ═══════════════════════════════════════════════════════════════════════ */}
+          {/* ─── FEATURED PROJECT 1: Porawagala (Bandarawela) Cabana Roofing ──── */}
+          {/* ═══════════════════════════════════════════════════════════════════════ */}
+          <div className="w-full min-w-full shrink-0 snap-start">
+            <div className="mb-0 rounded-3xl overflow-hidden border border-emerald-200/80 shadow-2xl bg-white">
 
           {/* Project Header Banner */}
           <div className="relative bg-gradient-to-r from-slate-950 via-slate-900 to-emerald-950 px-6 sm:px-10 py-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -374,11 +469,13 @@ export const Gallery: React.FC = () => {
             </a>
           </div>
         </div>
+      </div>
 
-        {/* ═══════════════════════════════════════════════════════ */}
-        {/* ─── FEATURED PROJECT 2: B/Athalapitiya Primary School ─ */}
-        {/* ═══════════════════════════════════════════════════════ */}
-        <div className="mb-20 rounded-3xl overflow-hidden border border-orange-100 shadow-2xl bg-white">
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* ─── FEATURED PROJECT 2: B/Athalapitiya Primary School ─ */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <div className="w-full min-w-full shrink-0 snap-start">
+        <div className="mb-0 rounded-3xl overflow-hidden border border-orange-100 shadow-2xl bg-white">
 
           {/* Project Header Banner */}
           <div className="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 px-6 sm:px-10 py-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -489,9 +586,35 @@ export const Gallery: React.FC = () => {
             </a>
           </div>
         </div>
+      </div>
+    </div>
 
-        {/* ─── More Projects Header & Category Tabs ─── */}
-        <div className="mt-16 mb-6">
+    {/* ─── Showcase Interactive Dots & Controls ─── */}
+    <div className="flex items-center justify-center gap-2.5 mt-6 mb-20">
+      <button
+        onClick={() => scrollToShowcase(0)}
+        className={`h-2.5 rounded-full transition-all duration-300 ${
+          activeShowcaseIdx === 0
+            ? 'w-10 bg-emerald-600 shadow-sm'
+            : 'w-2.5 bg-slate-300 hover:bg-slate-400'
+        }`}
+        title="Project 1: Porawagala Cabana Roofing"
+        aria-label="Project 1: Porawagala Cabana Roofing"
+      />
+      <button
+        onClick={() => scrollToShowcase(1)}
+        className={`h-2.5 rounded-full transition-all duration-300 ${
+          activeShowcaseIdx === 1
+            ? 'w-10 bg-orange-600 shadow-sm'
+            : 'w-2.5 bg-slate-300 hover:bg-slate-400'
+        }`}
+        title="Project 2: B/Athalapitiya School Roofing"
+        aria-label="Project 2: B/Athalapitiya School Roofing"
+      />
+    </div>
+
+    {/* ─── More Projects Header & Category Tabs ─── */}
+    <div className="mt-16 mb-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
             <div>
               <div className="flex items-center gap-2.5 mb-1.5">
