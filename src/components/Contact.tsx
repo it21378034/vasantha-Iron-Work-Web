@@ -53,7 +53,7 @@ _Sent via Vasantha Iron Works Website_`;
     setSubmitted(true);
   };
 
-  const services = ['Iron Grills', 'Gates', 'Roofing Structures', 'Ceiling Structures', 'Hand Railings', 'Custom Ironworks & Welding', 'Other Steel Fabrication'];
+  const services = ['Iron Grills', 'Gates', 'Roofing Structures', 'Ceilings & Wall Panelling', 'Hand Railings', 'Custom Ironworks & Welding', 'Other Steel Fabrication'];
 
   return (
     <section id="contact" className="py-24 bg-slate-50 relative overflow-hidden">

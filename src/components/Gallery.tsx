@@ -52,7 +52,7 @@ export const Gallery: React.FC = () => {
     { label: 'Gates', value: 'gates' },
     { label: 'Iron Grills', value: 'grills' },
     { label: 'Roofing', value: 'roofing' },
-    { label: 'Ceiling Structures', value: 'ceiling-structures' },
+    { label: 'Ceilings & Wall Panels', value: 'ceiling-structures' },
     { label: 'Hand Railings', value: 'hand-railings' },
     { label: 'Outdoor Furniture', value: 'outdoor-furniture' },
   ];
@@ -98,9 +98,23 @@ export const Gallery: React.FC = () => {
       tag: 'Precision Fit',
     },
     {
+      id: 17,
+      title: 'i-Panel PVC Wall Panelling & Mold Restoration',
+      category: 'Ceilings & Wall Panels',
+      slug: 'ceiling-structures',
+      image: '/images/ipanel_wall_cladding_1.jpg',
+      photos: [
+        '/images/ipanel_wall_cladding_1.jpg',
+        '/images/ipanel_wall_cladding_2.jpg',
+        '/images/ipanel_wall_cladding_3.jpg',
+      ],
+      description: 'A complete wall transformation and moisture restoration project. A room wall heavily ruined by water dampness, trapped moisture, and severe mold outbreak was completely restored and clad with premium wood-grain finish i-Panel PVC sheets — creating an elegant, 100% moisture-resistant, and maintenance-free modern interior.',
+      tag: 'Waterproof i-Panel',
+    },
+    {
       id: 12,
       title: 'Modern Wood-Finish Panel Ceiling with Recessed LED Lighting',
-      category: 'Ceiling Structures',
+      category: 'Ceilings & Wall Panels',
       slug: 'ceiling-structures',
       image: '/images/ceiling_project_completed.jpg',
       photos: [
@@ -541,12 +555,38 @@ export const Gallery: React.FC = () => {
             <button onClick={() => setSelected(null)} className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-orange-600 transition-colors shadow-lg">
               <X className="w-5 h-5" />
             </button>
-            <div className="h-[300px] sm:h-[450px] bg-slate-950 flex items-center justify-center overflow-hidden">
+            <div className="relative h-[300px] sm:h-[450px] bg-slate-950 flex items-center justify-center overflow-hidden">
               <img
                 src={selected.photos && selected.photos[selectedPhotoIdx] ? selected.photos[selectedPhotoIdx] : selected.image}
                 alt={selected.title}
                 className="w-full h-full object-contain"
               />
+              {selected.photos && selected.photos.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedPhotoIdx((prev) => (prev > 0 ? prev - 1 : selected.photos!.length - 1));
+                    }}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/80 hover:bg-orange-600 text-white flex items-center justify-center transition-colors shadow-lg backdrop-blur-sm"
+                    title="Previous Photo"
+                    aria-label="Previous Photo"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedPhotoIdx((prev) => (prev < selected.photos!.length - 1 ? prev + 1 : 0));
+                    }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/80 hover:bg-orange-600 text-white flex items-center justify-center transition-colors shadow-lg backdrop-blur-sm"
+                    title="Next Photo"
+                    aria-label="Next Photo"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </>
+              )}
             </div>
             {/* Multiple Photos Thumbnail Strip */}
             {selected.photos && selected.photos.length > 1 && (
