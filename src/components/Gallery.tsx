@@ -8,6 +8,7 @@ interface GalleryItem {
   slug: string;
   image: string;
   photos?: string[];
+  photoCaptions?: string[];
   description: string;
   tag: string;
 }
@@ -58,6 +59,31 @@ export const Gallery: React.FC = () => {
   ];
 
   const items: GalleryItem[] = [
+    {
+      id: 18,
+      title: 'Porawagala (Bandarawela) View Point Cabana Roofing',
+      category: 'Roofing',
+      slug: 'roofing',
+      image: '/images/cabana_roofing_w6.jpg',
+      photos: [
+        '/images/cabana_roofing_w1.jpg',
+        '/images/cabana_roofing_w2.jpg',
+        '/images/cabana_roofing_w3.jpg',
+        '/images/cabana_roofing_w4.jpg',
+        '/images/cabana_roofing_w5.jpg',
+        '/images/cabana_roofing_w6.jpg',
+      ],
+      photoCaptions: [
+        'W1 — Site Preparation & Structural Steel Girder Placement (Porawagala View Point)',
+        'W2 — Precision Steel Purlin & Rafter Framework Alignment',
+        'W3 — Initial Corrugated Roofing Sheet Installation on Frame',
+        'W4 — Roof Pitch Sheeting in Progress Across Scaffold Structure',
+        'W5 — Interior Underside Ceiling & Structural Framework Inspection',
+        'W6 — Completed Dual-Pitch Cabana Roof with Scenic Viewpoint Panorama',
+      ],
+      description: 'An ongoing structural steel cabana roofing project situated at the scenic Porawagala View Point in Bandarawela. Engineered with heavy steel box rafters, anti-corrosive coating, and durable corrugated green roofing sheets designed to withstand high-altitude mountain winds while preserving panoramic vistas.',
+      tag: 'Ongoing Project',
+    },
     { id: 1, title: 'Custom Matte Black Main Entrance Gate', category: 'Gates', slug: 'gates', image: '/images/custom_iron_gate.png', description: 'A custom-built double-swing main entrance driveway gate fabricated from heavy structural steel tubing and plates. Finished with a weather-resistant matte black coating, it features decorative 3D geometric pyramid panels, chrome boss accents, sturdy vertical security bars, and solid welded latch handles for maximum residential boundary protection.', tag: 'Heavy Gauge Steel' },
     { id: 15, title: 'Green Corrugated Steel Sliding Gate', category: 'Gates', slug: 'gates', image: '/images/gate_green_sliding.jpg', description: 'A heavy-duty sliding gate fabricated from corrugated green steel sheets mounted on a solid black steel box-section frame. Features smooth bottom roller wheels on a ground track rail for effortless sliding operation. Designed to provide maximum security and weather resistance for residential and commercial driveways.', tag: 'Sliding Gate' },
     { id: 16, title: 'Black Corrugated Steel Double Swing Gate', category: 'Gates', slug: 'gates', image: '/images/gate_black_double.jpg', description: 'A robust double-leaf swing gate constructed from black corrugated steel sheets within a reinforced black steel frame. Fitted with heavy-duty hinges, a central latch bolt lock, and decorative chrome handles. Installed between stone walls, this gate offers strong perimeter security with a clean, bold aesthetic finish.', tag: 'Double Swing' },
@@ -563,12 +589,17 @@ export const Gallery: React.FC = () => {
               />
               {selected.photos && selected.photos.length > 1 && (
                 <>
+                  {/* Photo Counter Badge */}
+                  <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-slate-900/80 text-white text-xs font-semibold backdrop-blur-sm border border-white/10 shadow-md">
+                    Photo {selectedPhotoIdx + 1} of {selected.photos.length}
+                  </div>
+
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       setSelectedPhotoIdx((prev) => (prev > 0 ? prev - 1 : selected.photos!.length - 1));
                     }}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/80 hover:bg-orange-600 text-white flex items-center justify-center transition-colors shadow-lg backdrop-blur-sm"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/80 hover:bg-orange-600 text-white flex items-center justify-center transition-colors shadow-lg backdrop-blur-sm z-10"
                     title="Previous Photo"
                     aria-label="Previous Photo"
                   >
@@ -579,13 +610,22 @@ export const Gallery: React.FC = () => {
                       e.stopPropagation();
                       setSelectedPhotoIdx((prev) => (prev < selected.photos!.length - 1 ? prev + 1 : 0));
                     }}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/80 hover:bg-orange-600 text-white flex items-center justify-center transition-colors shadow-lg backdrop-blur-sm"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/80 hover:bg-orange-600 text-white flex items-center justify-center transition-colors shadow-lg backdrop-blur-sm z-10"
                     title="Next Photo"
                     aria-label="Next Photo"
                   >
                     <ChevronRight className="w-5 h-5" />
                   </button>
                 </>
+              )}
+
+              {/* Photo Caption Overlay (e.g. W1 to W6 stage description) */}
+              {selected.photoCaptions && selected.photoCaptions[selectedPhotoIdx] && (
+                <div className="absolute bottom-3 left-3 right-3 z-10 flex justify-center pointer-events-none">
+                  <span className="max-w-xl px-4 py-1.5 rounded-xl bg-slate-950/85 text-white text-xs font-medium backdrop-blur-md border border-white/15 shadow-xl text-center">
+                    {selected.photoCaptions[selectedPhotoIdx]}
+                  </span>
+                </div>
               )}
             </div>
             {/* Multiple Photos Thumbnail Strip */}
@@ -595,13 +635,18 @@ export const Gallery: React.FC = () => {
                   <button
                     key={idx}
                     onClick={() => setSelectedPhotoIdx(idx)}
-                    className={`h-12 w-16 sm:w-20 rounded-lg overflow-hidden border-2 transition-all shrink-0 ${
+                    className={`relative h-12 w-16 sm:w-20 rounded-lg overflow-hidden border-2 transition-all shrink-0 ${
                       selectedPhotoIdx === idx
                         ? 'border-orange-500 scale-105 shadow-md shadow-orange-500/40'
                         : 'border-slate-700 opacity-60 hover:opacity-100'
                     }`}
                   >
                     <img src={photoSrc} alt="" className="w-full h-full object-cover" />
+                    {selected.photoCaptions && (
+                      <span className="absolute bottom-0.5 right-0.5 px-1 py-0.5 bg-black/80 text-[9px] font-bold text-white rounded">
+                        W{idx + 1}
+                      </span>
+                    )}
                   </button>
                 ))}
               </div>
