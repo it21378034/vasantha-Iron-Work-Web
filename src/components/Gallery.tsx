@@ -363,13 +363,13 @@ export const Gallery: React.FC = () => {
           <div className="px-6 sm:px-10 py-4 bg-slate-50 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap gap-2">
               {['Hillside Viewpoint', 'Box Steel Rafters', 'Corrugated Green Sheets', 'Anti-Corrosive Coating', 'High Wind Load Design', 'W1–W6 Stages'].map((tag) => (
-                <span key={tag} className="px-3 py-1 rounded-full text-[11px] font-bold bg-white text-slate-700 border border-slate-200 shadow-2xs">
+                <span key={tag} className="px-3 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
                   {tag}
                 </span>
               ))}
             </div>
             <a href="#contact" className="btn-primary text-xs py-2.5 px-5 flex-shrink-0">
-              <span>Inquire About Cabana Roofing</span>
+              <span>Request Similar Project</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </a>
           </div>
