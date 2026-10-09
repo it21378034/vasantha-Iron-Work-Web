@@ -16,6 +16,7 @@ interface GalleryItem {
 interface ProjectPhoto {
   image: string;
   caption: string;
+  stage?: string;
 }
 
 export const Gallery: React.FC = () => {
@@ -23,11 +24,45 @@ export const Gallery: React.FC = () => {
   const [selected, setSelected] = useState<GalleryItem | null>(null);
   const [selectedPhotoIdx, setSelectedPhotoIdx] = useState(0);
   const [schoolPhoto, setSchoolPhoto] = useState<ProjectPhoto | null>(null);
+  const [selectedCabanaIdx, setSelectedCabanaIdx] = useState<number | null>(null);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const cabanaPhotos: ProjectPhoto[] = [
+    {
+      image: '/images/cabana_roofing_w1.jpg',
+      stage: 'W1',
+      caption: 'W1 — Site Preparation & Heavy Structural Steel Placement (Porawagala View Point)',
+    },
+    {
+      image: '/images/cabana_roofing_w2.jpg',
+      stage: 'W2',
+      caption: 'W2 — Precision Steel Purlin & Rafter Framework Alignment',
+    },
+    {
+      image: '/images/cabana_roofing_w3.jpg',
+      stage: 'W3',
+      caption: 'W3 — Initial Corrugated Roofing Sheet Installation on Frame',
+    },
+    {
+      image: '/images/cabana_roofing_w4.jpg',
+      stage: 'W4',
+      caption: 'W4 — Roof Pitch Sheeting in Progress Across Scaffold Structure',
+    },
+    {
+      image: '/images/cabana_roofing_w5.jpg',
+      stage: 'W5',
+      caption: 'W5 — Interior Underside Ceiling & Structural Framework Inspection',
+    },
+    {
+      image: '/images/cabana_roofing_w6.jpg',
+      stage: 'W6',
+      caption: 'W6 — Completed Dual-Pitch Cabana Roof with Scenic Viewpoint Panorama',
+    },
+  ];
 
   const schoolPhotos: ProjectPhoto[] = [
     {
@@ -59,31 +94,6 @@ export const Gallery: React.FC = () => {
   ];
 
   const items: GalleryItem[] = [
-    {
-      id: 18,
-      title: 'Porawagala (Bandarawela) View Point Cabana Roofing',
-      category: 'Roofing',
-      slug: 'roofing',
-      image: '/images/cabana_roofing_w6.jpg',
-      photos: [
-        '/images/cabana_roofing_w1.jpg',
-        '/images/cabana_roofing_w2.jpg',
-        '/images/cabana_roofing_w3.jpg',
-        '/images/cabana_roofing_w4.jpg',
-        '/images/cabana_roofing_w5.jpg',
-        '/images/cabana_roofing_w6.jpg',
-      ],
-      photoCaptions: [
-        'W1 — Site Preparation & Structural Steel Girder Placement (Porawagala View Point)',
-        'W2 — Precision Steel Purlin & Rafter Framework Alignment',
-        'W3 — Initial Corrugated Roofing Sheet Installation on Frame',
-        'W4 — Roof Pitch Sheeting in Progress Across Scaffold Structure',
-        'W5 — Interior Underside Ceiling & Structural Framework Inspection',
-        'W6 — Completed Dual-Pitch Cabana Roof with Scenic Viewpoint Panorama',
-      ],
-      description: 'An ongoing structural steel cabana roofing project situated at the scenic Porawagala View Point in Bandarawela. Engineered with heavy steel box rafters, anti-corrosive coating, and durable corrugated green roofing sheets designed to withstand high-altitude mountain winds while preserving panoramic vistas.',
-      tag: 'Ongoing Project',
-    },
     { id: 1, title: 'Custom Matte Black Main Entrance Gate', category: 'Gates', slug: 'gates', image: '/images/custom_iron_gate.png', description: 'A custom-built double-swing main entrance driveway gate fabricated from heavy structural steel tubing and plates. Finished with a weather-resistant matte black coating, it features decorative 3D geometric pyramid panels, chrome boss accents, sturdy vertical security bars, and solid welded latch handles for maximum residential boundary protection.', tag: 'Heavy Gauge Steel' },
     { id: 15, title: 'Green Corrugated Steel Sliding Gate', category: 'Gates', slug: 'gates', image: '/images/gate_green_sliding.jpg', description: 'A heavy-duty sliding gate fabricated from corrugated green steel sheets mounted on a solid black steel box-section frame. Features smooth bottom roller wheels on a ground track rail for effortless sliding operation. Designed to provide maximum security and weather resistance for residential and commercial driveways.', tag: 'Sliding Gate' },
     { id: 16, title: 'Black Corrugated Steel Double Swing Gate', category: 'Gates', slug: 'gates', image: '/images/gate_black_double.jpg', description: 'A robust double-leaf swing gate constructed from black corrugated steel sheets within a reinforced black steel frame. Fitted with heavy-duty hinges, a central latch bolt lock, and decorative chrome handles. Installed between stone walls, this gate offers strong perimeter security with a clean, bold aesthetic finish.', tag: 'Double Swing' },
@@ -248,8 +258,125 @@ export const Gallery: React.FC = () => {
           </p>
         </div>
 
+        {/* ═══════════════════════════════════════════════════════════════════════ */}
+        {/* ─── FEATURED PROJECT 1: Porawagala (Bandarawela) Cabana Roofing ──── */}
+        {/* ═══════════════════════════════════════════════════════════════════════ */}
+        <div className="mb-14 rounded-3xl overflow-hidden border border-emerald-200/80 shadow-2xl bg-white">
+
+          {/* Project Header Banner */}
+          <div className="relative bg-gradient-to-r from-slate-950 via-slate-900 to-emerald-950 px-6 sm:px-10 py-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            {/* Decorative pattern */}
+            <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: 'radial-gradient(rgba(16,185,129,0.8) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+
+            <div className="relative z-10">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <span className="px-3 py-1 rounded-full bg-emerald-600 text-white text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 shadow-sm">
+                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                  Ongoing Project
+                </span>
+                <span className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-bold uppercase tracking-wider">
+                  Cabana Roofing Structure
+                </span>
+                <span className="px-2.5 py-1 rounded-full bg-orange-500/20 border border-orange-400/40 text-orange-300 text-[10px] font-extrabold tracking-wider">
+                  W1 → W6 Order
+                </span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-['Outfit'] leading-tight">
+                Porawagala (Bandarawela) View Point Cabana Roofing
+              </h3>
+              <p className="text-sm text-slate-300 mt-1 flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                Porawagala View Point, Bandarawela — Hillside Structural Steel & Green Sheet Canopy
+              </p>
+            </div>
+
+            <div className="relative z-10 flex flex-wrap gap-2.5">
+              {[
+                { icon: Building2, label: 'Hilltop Cabana', color: 'text-emerald-400' },
+                { icon: Star, label: 'Heavy Steel Frame', color: 'text-amber-400' },
+                { icon: CheckCircle2, label: '6 Stage Progress', color: 'text-blue-400' },
+              ].map(({ icon: Icon, label, color }) => (
+                <div key={label} className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/8 border border-white/15 backdrop-blur-sm">
+                  <Icon className={`w-3.5 h-3.5 ${color} shrink-0`} />
+                  <span className="text-xs font-semibold text-white">{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Project Description */}
+          <div className="px-6 sm:px-10 py-5 bg-emerald-50/60 border-b border-emerald-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <p className="text-sm text-slate-700 leading-relaxed flex-1">
+              An active structural steel cabana roofing project situated at the scenic <strong className="text-emerald-800">Porawagala View Point in Bandarawela</strong>. Engineered with high-tensile steel purlins, heavy box rafters, and weather-resistant green corrugated roofing sheets designed to withstand severe mountain wind loads while highlighting panoramic hillside vistas. Click any photo below to inspect stages <strong className="text-slate-900">W1 through W6</strong>.
+            </p>
+            <div className="flex-shrink-0 flex flex-col items-center px-5 py-2.5 rounded-2xl bg-emerald-600 text-white text-center shadow-lg">
+              <span className="text-xl font-black font-['Outfit']">W1–W6</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider mt-0.5">Active Project</span>
+            </div>
+          </div>
+
+          {/* 6-Photo Progress Grid (W1 to W6) */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-0 bg-slate-950">
+            {cabanaPhotos.map((photo, idx) => (
+              <div
+                key={idx}
+                onClick={() => setSelectedCabanaIdx(idx)}
+                className="group relative cursor-pointer overflow-hidden border-r border-b border-white/10 last:border-r-0"
+                style={{ height: '240px' }}
+              >
+                <img
+                  src={photo.image}
+                  alt={photo.caption}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent opacity-65 group-hover:opacity-90 transition-opacity" />
+
+                {/* Stage Badge W1-W6 */}
+                <div className="absolute top-3 left-3">
+                  <span className="px-2.5 py-1 rounded-lg bg-emerald-600/95 text-white text-[11px] font-black tracking-wider backdrop-blur-sm shadow-md">
+                    {photo.stage}
+                  </span>
+                </div>
+
+                {/* Zoom Icon */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-11 h-11 rounded-full bg-white text-emerald-600 flex items-center justify-center shadow-xl scale-75 group-hover:scale-100 transition-transform duration-300">
+                    <Maximize2 className="w-5 h-5" />
+                  </div>
+                </div>
+
+                {/* Caption / Phase title */}
+                <div className="absolute bottom-3 left-3 right-3">
+                  <p className="text-white text-xs font-semibold leading-tight line-clamp-2 drop-shadow-md">
+                    {photo.caption.split('—')[1]?.trim() || photo.caption}
+                  </p>
+                </div>
+
+                {idx < cabanaPhotos.length - 1 && (
+                  <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-px bg-white/15" />
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Project Footer */}
+          <div className="px-6 sm:px-10 py-4 bg-slate-50 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap gap-2">
+              {['Hillside Viewpoint', 'Box Steel Rafters', 'Corrugated Green Sheets', 'Anti-Corrosive Coating', 'High Wind Load Design', 'W1–W6 Stages'].map((tag) => (
+                <span key={tag} className="px-3 py-1 rounded-full text-[11px] font-bold bg-white text-slate-700 border border-slate-200 shadow-2xs">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <a href="#contact" className="btn-primary text-xs py-2.5 px-5 flex-shrink-0">
+              <span>Inquire About Cabana Roofing</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+
         {/* ═══════════════════════════════════════════════════════ */}
-        {/* ─── FEATURED PROJECT: B/Athalapitiya Primary School ── */}
+        {/* ─── FEATURED PROJECT 2: B/Athalapitiya Primary School ─ */}
         {/* ═══════════════════════════════════════════════════════ */}
         <div className="mb-20 rounded-3xl overflow-hidden border border-orange-100 shadow-2xl bg-white">
 
@@ -534,6 +661,97 @@ export const Gallery: React.FC = () => {
         </div>
 
       </div>
+
+      {/* ─── Porawagala Cabana Photo Lightbox (W1 to W6) ─── */}
+      {selectedCabanaIdx !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/95 backdrop-blur-xl"
+          onClick={() => setSelectedCabanaIdx(null)}
+        >
+          <div className="relative max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => setSelectedCabanaIdx(null)}
+              className="absolute -top-4 -right-4 z-20 w-10 h-10 rounded-full bg-white text-slate-900 flex items-center justify-center hover:bg-orange-600 hover:text-white transition-colors shadow-2xl"
+              title="Close"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="rounded-3xl overflow-hidden shadow-2xl bg-slate-900 relative">
+              <div className="relative h-[320px] sm:h-[500px] flex items-center justify-center overflow-hidden">
+                <img
+                  src={cabanaPhotos[selectedCabanaIdx].image}
+                  alt={cabanaPhotos[selectedCabanaIdx].caption}
+                  className="w-full h-full object-contain bg-slate-950"
+                />
+
+                {/* Stage Badge on photo */}
+                <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
+                  <span className="px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-black tracking-wider shadow-lg">
+                    {cabanaPhotos[selectedCabanaIdx].stage}
+                  </span>
+                  <span className="px-3 py-1 rounded-full bg-slate-900/80 text-white text-xs font-semibold backdrop-blur-sm border border-white/10 shadow-md">
+                    Stage {selectedCabanaIdx + 1} of {cabanaPhotos.length}
+                  </span>
+                </div>
+
+                {/* Prev / Next buttons */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedCabanaIdx((prev) => (prev! > 0 ? prev! - 1 : cabanaPhotos.length - 1));
+                  }}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-950/80 hover:bg-orange-600 text-white flex items-center justify-center transition-colors shadow-xl backdrop-blur-sm z-10"
+                  title="Previous Stage"
+                  aria-label="Previous Stage"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedCabanaIdx((prev) => (prev! < cabanaPhotos.length - 1 ? prev! + 1 : 0));
+                  }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-950/80 hover:bg-orange-600 text-white flex items-center justify-center transition-colors shadow-xl backdrop-blur-sm z-10"
+                  title="Next Stage"
+                  aria-label="Next Stage"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="bg-slate-900 px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-slate-800">
+                <div className="flex items-center gap-3">
+                  <span className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-[10px] font-black uppercase tracking-wider shrink-0">
+                    Porawagala Cabana
+                  </span>
+                  <p className="text-sm text-slate-200 font-medium">{cabanaPhotos[selectedCabanaIdx].caption}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Thumbnail Strip with W1 to W6 badges */}
+            <div className="flex items-center justify-center gap-2.5 mt-4 overflow-x-auto pb-1">
+              {cabanaPhotos.map((p, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSelectedCabanaIdx(i)}
+                  className={`relative w-16 sm:w-20 h-12 rounded-xl overflow-hidden border-2 transition-all shrink-0 ${
+                    selectedCabanaIdx === i
+                      ? 'border-emerald-500 scale-105 shadow-lg shadow-emerald-500/40'
+                      : 'border-transparent opacity-50 hover:opacity-100'
+                  }`}
+                >
+                  <img src={p.image} alt="" className="w-full h-full object-cover" />
+                  <span className="absolute bottom-0.5 right-0.5 px-1 py-0.2 bg-black/85 text-[9px] font-black text-white rounded">
+                    {p.stage}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ─── School Photo Lightbox ─── */}
       {schoolPhoto && (
