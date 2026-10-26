@@ -1,0 +1,6 @@
+# Robots.txt for Vasantha Iron Works
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://vasanthaironworks.com/sitemap.xml

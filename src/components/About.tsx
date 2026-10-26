@@ -68,7 +68,11 @@ export const About: React.FC = () => {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[420px]">
               <img
                 src="/images/hero_welding.jpg"
-                alt="Vasantha Iron Works Craftsmanship"
+                alt="Vasantha Iron Works Master Welder and Steel Fabricator in Workshop"
+                width={600}
+                height={420}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
                 style={{ filter: 'brightness(0.9) contrast(1.05)' }}
               />

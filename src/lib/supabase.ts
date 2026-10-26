@@ -90,7 +90,7 @@ export async function fetchReviews(): Promise<ClientReview[]> {
         return parsed;
       }
     }
-  } catch (e) {
+  } catch {
     // Ignore storage parse error
   }
 
@@ -143,7 +143,7 @@ export async function submitReview(review: Omit<ClientReview, 'id' | 'created_at
     const current = await fetchReviews();
     const updated = [newReview, ...current.filter(r => r.id !== newReview.id)];
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-  } catch (e) {
+  } catch {
     // ignore
   }
 

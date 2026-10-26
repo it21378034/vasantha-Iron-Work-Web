@@ -9,6 +9,7 @@ import { WorkProcess } from './components/WorkProcess';
 import { Testimonials } from './components/Testimonials';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { FloatingActions } from './components/FloatingActions';
 
 export function App() {
   const [selectedServiceForQuote, setSelectedServiceForQuote] = useState<string>('Gates');
@@ -33,8 +34,8 @@ export function App() {
       {/* Sticky Header Navigation */}
       <Navbar onOpenQuoteModal={handleOpenQuote} />
 
-      {/* Hero Section */}
-      <main>
+      {/* Main Page Content */}
+      <main id="main-content">
         <Hero onOpenQuoteModal={handleOpenQuote} />
         <About />
         <Services onSelectService={handleSelectService} />
@@ -47,6 +48,9 @@ export function App() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Quick Action Floating Bar (WhatsApp, Call, Back to Top) */}
+      <FloatingActions />
     </div>
   );
 }

@@ -19,6 +19,58 @@ interface ProjectPhoto {
   stage?: string;
 }
 
+const cabanaPhotos: ProjectPhoto[] = [
+  {
+    image: '/images/cabana_roofing_w1.jpg',
+    stage: 'W1',
+    caption: 'W1 — Site Preparation & Heavy Structural Steel Placement (Porawagala View Point)',
+  },
+  {
+    image: '/images/cabana_roofing_w2.jpg',
+    stage: 'W2',
+    caption: 'W2 — Precision Steel Purlin & Rafter Framework Alignment',
+  },
+  {
+    image: '/images/cabana_roofing_w3.jpg',
+    stage: 'W3',
+    caption: 'W3 — Initial Corrugated Roofing Sheet Installation on Frame',
+  },
+  {
+    image: '/images/cabana_roofing_w4.jpg',
+    stage: 'W4',
+    caption: 'W4 — Roof Pitch Sheeting in Progress Across Scaffold Structure',
+  },
+  {
+    image: '/images/cabana_roofing_w5.jpg',
+    stage: 'W5',
+    caption: 'W5 — Interior Underside Ceiling & Structural Framework Inspection',
+  },
+  {
+    image: '/images/cabana_roofing_w6.jpg',
+    stage: 'W6',
+    caption: 'W6 — Completed Dual-Pitch Cabana Roof with Scenic Viewpoint Panorama',
+  },
+];
+
+const schoolPhotos: ProjectPhoto[] = [
+  {
+    image: '/images/school_roof_completed.jpg',
+    caption: 'Overall Contextual Site View — B/Athalapitiya Primary School',
+  },
+  {
+    image: '/images/school_roof_installation.jpg',
+    caption: 'Finishing Stage — Final Roofing Sheets Being Installed on Curved Steel Frame',
+  },
+  {
+    image: '/images/school_roof_site_view.jpg',
+    caption: 'Completed Front Elevation — Arched Canopy Roofing',
+  },
+  {
+    image: '/images/school_roof_interior.jpg',
+    caption: 'Interior Structural Detail — Curved Steel Frame & Roofing Sheet',
+  },
+];
+
 export const Gallery: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [selected, setSelected] = useState<GalleryItem | null>(null);
@@ -33,58 +85,6 @@ export const Gallery: React.FC = () => {
 
   const showcaseScrollRef = useRef<HTMLDivElement>(null);
   const [activeShowcaseIdx, setActiveShowcaseIdx] = useState(0);
-
-  const cabanaPhotos: ProjectPhoto[] = [
-    {
-      image: '/images/cabana_roofing_w1.jpg',
-      stage: 'W1',
-      caption: 'W1 — Site Preparation & Heavy Structural Steel Placement (Porawagala View Point)',
-    },
-    {
-      image: '/images/cabana_roofing_w2.jpg',
-      stage: 'W2',
-      caption: 'W2 — Precision Steel Purlin & Rafter Framework Alignment',
-    },
-    {
-      image: '/images/cabana_roofing_w3.jpg',
-      stage: 'W3',
-      caption: 'W3 — Initial Corrugated Roofing Sheet Installation on Frame',
-    },
-    {
-      image: '/images/cabana_roofing_w4.jpg',
-      stage: 'W4',
-      caption: 'W4 — Roof Pitch Sheeting in Progress Across Scaffold Structure',
-    },
-    {
-      image: '/images/cabana_roofing_w5.jpg',
-      stage: 'W5',
-      caption: 'W5 — Interior Underside Ceiling & Structural Framework Inspection',
-    },
-    {
-      image: '/images/cabana_roofing_w6.jpg',
-      stage: 'W6',
-      caption: 'W6 — Completed Dual-Pitch Cabana Roof with Scenic Viewpoint Panorama',
-    },
-  ];
-
-  const schoolPhotos: ProjectPhoto[] = [
-    {
-      image: '/images/school_roof_completed.jpg',
-      caption: 'Overall Contextual Site View — B/Athalapitiya Primary School',
-    },
-    {
-      image: '/images/school_roof_installation.jpg',
-      caption: 'Finishing Stage — Final Roofing Sheets Being Installed on Curved Steel Frame',
-    },
-    {
-      image: '/images/school_roof_site_view.jpg',
-      caption: 'Completed Front Elevation — Arched Canopy Roofing',
-    },
-    {
-      image: '/images/school_roof_interior.jpg',
-      caption: 'Interior Structural Detail — Curved Steel Frame & Roofing Sheet',
-    },
-  ];
 
   const categories = [
     { label: 'All Projects', value: 'all' },
@@ -214,6 +214,50 @@ export const Gallery: React.FC = () => {
       window.removeEventListener('resize', updateScrollState);
     };
   }, [activeCategory, filtered]);
+
+  // Lock body scroll & enable keyboard navigation (Escape, ArrowLeft, ArrowRight) for lightboxes
+  useEffect(() => {
+    const isModalOpen = selected !== null || selectedCabanaIdx !== null || schoolPhoto !== null;
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelected(null);
+        setSelectedCabanaIdx(null);
+        setSchoolPhoto(null);
+      } else if (e.key === 'ArrowLeft') {
+        if (selected && selected.photos && selected.photos.length > 1) {
+          setSelectedPhotoIdx((prev) => (prev > 0 ? prev - 1 : selected.photos!.length - 1));
+        } else if (selectedCabanaIdx !== null) {
+          setSelectedCabanaIdx((prev) => (prev! > 0 ? prev! - 1 : cabanaPhotos.length - 1));
+        } else if (schoolPhoto !== null) {
+          const idx = schoolPhotos.findIndex((p) => p.image === schoolPhoto.image);
+          if (idx > 0) setSchoolPhoto(schoolPhotos[idx - 1]);
+          else setSchoolPhoto(schoolPhotos[schoolPhotos.length - 1]);
+        }
+      } else if (e.key === 'ArrowRight') {
+        if (selected && selected.photos && selected.photos.length > 1) {
+          setSelectedPhotoIdx((prev) => (prev < selected.photos!.length - 1 ? prev + 1 : 0));
+        } else if (selectedCabanaIdx !== null) {
+          setSelectedCabanaIdx((prev) => (prev! < cabanaPhotos.length - 1 ? prev! + 1 : 0));
+        } else if (schoolPhoto !== null) {
+          const idx = schoolPhotos.findIndex((p) => p.image === schoolPhoto.image);
+          if (idx < schoolPhotos.length - 1) setSchoolPhoto(schoolPhotos[idx + 1]);
+          else setSchoolPhoto(schoolPhotos[0]);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selected, selectedCabanaIdx, schoolPhoto]);
 
   const handleScroll = (direction: 'left' | 'right') => {
     if (!scrollRef.current) return;

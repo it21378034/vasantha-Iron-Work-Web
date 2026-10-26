@@ -68,7 +68,7 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-3 space-y-4">
             <h4 className="text-sm font-extrabold uppercase tracking-widest text-white font-['Outfit'] border-b border-slate-800 pb-3">Our Services</h4>
             <ul className="space-y-2.5 text-sm">
-              {['Iron Grills', 'Security Gates', 'Roofing Structures', 'Ceiling Frameworks', 'Hand Railings', 'Custom Ironworks', 'Arc Welding Services'].map((s) => (
+              {['Iron Grills', 'Security Gates', 'Roofing Structures', 'Window Canopies', 'Polycarbonate Roofing', 'Gutter Service', 'Airport Nets', 'Ceilings & Wall Panelling', 'Hand Railings', 'Custom Ironworks'].map((s) => (
                 <li key={s}>
                   <a href="#services" className="flex items-center gap-2 hover:text-orange-400 transition-colors group">
                     <span className="w-1 h-1 rounded-full bg-orange-500 opacity-0 group-hover:opacity-100 transition-opacity" />

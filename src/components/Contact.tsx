@@ -6,6 +6,7 @@ interface ContactProps {
 }
 
 export const Contact: React.FC<ContactProps> = ({ initialService = 'Gates' }) => {
+  const [prevService, setPrevService] = useState(initialService);
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -17,9 +18,19 @@ export const Contact: React.FC<ContactProps> = ({ initialService = 'Gates' }) =>
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
 
+  // Sync service when initialService prop updates from service card clicks
+  if (initialService !== prevService) {
+    setPrevService(initialService);
+    setFormData(p => ({ ...p, serviceRequired: initialService }));
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(p => ({ ...p, [e.target.name]: e.target.value }));
     if (error) setError('');
+  };
+
+  const handleSelectServiceQuick = (s: string) => {
+    setFormData(p => ({ ...p, serviceRequired: s }));
   };
 
   const buildWhatsAppUrl = () => {
@@ -53,10 +64,22 @@ _Sent via Vasantha Iron Works Website_`;
     setSubmitted(true);
   };
 
-  const services = ['Iron Grills', 'Gates', 'Roofing Structures', 'Ceilings & Wall Panelling', 'Hand Railings', 'Custom Ironworks & Welding', 'Other Steel Fabrication'];
+  const services = [
+    'Iron Grills',
+    'Gates',
+    'Roofing Structures',
+    'Window Canopies',
+    'Polycarbonate Roofing',
+    'Gutter Service',
+    'Airport Nets',
+    'Ceilings & Wall Panelling',
+    'Hand Railings',
+    'Custom Ironworks & Welding',
+    'Other Steel Fabrication',
+  ];
 
   return (
-    <section id="contact" className="py-24 bg-slate-50 relative overflow-hidden">
+    <section id="contact" className="py-24 bg-slate-50 relative overflow-hidden" aria-labelledby="contact-heading">
       {/* Background gradient */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-50 rounded-full blur-3xl opacity-70 translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
@@ -68,7 +91,7 @@ _Sent via Vasantha Iron Works Website_`;
             <Flame className="w-3.5 h-3.5" />
             Free Quotation
           </div>
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-slate-900 mb-4">
+          <h2 id="contact-heading" className="text-4xl sm:text-5xl font-extrabold text-slate-900 mb-4">
             Let's <span className="text-orange-gradient">Build</span> Together
           </h2>
           <p className="text-slate-600 text-lg">
@@ -91,7 +114,7 @@ _Sent via Vasantha Iron Works Website_`;
                   <h3 className="text-xl font-extrabold text-slate-900 font-['Outfit']">Quotation Request Form</h3>
                   <p className="text-sm text-slate-500 flex items-center gap-1.5 mt-0.5">
                     <Clock className="w-3.5 h-3.5 text-orange-500" />
-                    Response within 24 hours · Direct WhatsApp & Call
+                    Response within 24 hours · Direct WhatsApp &amp; Call
                   </p>
                 </div>
               </div>
@@ -125,6 +148,7 @@ _Sent via Vasantha Iron Works Website_`;
                       <span>Send to WhatsApp (+94 763 207 873)</span>
                     </a>
                     <button
+                      type="button"
                       onClick={() => { setSubmitted(false); setFormData({ fullName: '', phone: '', email: '', serviceRequired: initialService, projectDescription: '', contactMethod: 'WhatsApp' }); }}
                       className="w-full sm:w-auto btn-secondary text-sm py-3.5 px-5"
                     >
@@ -133,10 +157,10 @@ _Sent via Vasantha Iron Works Website_`;
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-5" aria-label="Quotation Inquiry Form">
 
                   {error && (
-                    <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm flex items-center gap-2.5">
+                    <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm flex items-center gap-2.5" role="alert">
                       <AlertCircle className="w-4 h-4 shrink-0" />
                       {error}
                     </div>
@@ -144,39 +168,89 @@ _Sent via Vasantha Iron Works Website_`;
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                      <label htmlFor="contact-full-name" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
                         Full Name <span className="text-orange-600">*</span>
                       </label>
-                      <input type="text" name="fullName" value={formData.fullName} onChange={handleChange}
+                      <input
+                        id="contact-full-name"
+                        type="text"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleChange}
                         placeholder="Your full name"
-                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm transition-all"
+                        autoComplete="name"
+                        required
+                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm transition-all focus:bg-white"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                      <label htmlFor="contact-service-select" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
                         Service Required <span className="text-orange-600">*</span>
                       </label>
-                      <select name="serviceRequired" value={formData.serviceRequired} onChange={handleChange}
-                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm transition-all cursor-pointer"
+                      <select
+                        id="contact-service-select"
+                        name="serviceRequired"
+                        value={formData.serviceRequired}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm transition-all cursor-pointer focus:bg-white"
                       >
-                        {services.map(s => <option key={s}>{s}</option>)}
+                        {services.map(s => <option key={s} value={s}>{s}</option>)}
                       </select>
+                    </div>
+                  </div>
+
+                  {/* Quick-Select Service Pills for improved UX */}
+                  <div>
+                    <span className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                      Quick Select Category:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {services.map(s => (
+                        <button
+                          key={s}
+                          type="button"
+                          onClick={() => handleSelectServiceQuick(s)}
+                          className={`text-xs px-2.5 py-1 rounded-lg border transition-all ${
+                            formData.serviceRequired === s
+                              ? 'bg-orange-600 border-orange-600 text-white font-bold shadow-sm'
+                              : 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-700'
+                          }`}
+                        >
+                          {s}
+                        </button>
+                      ))}
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Phone Number</label>
-                      <input type="tel" name="phone" value={formData.phone} onChange={handleChange}
+                      <label htmlFor="contact-phone" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                        Phone Number
+                      </label>
+                      <input
+                        id="contact-phone"
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
                         placeholder="+94 77 123 4567"
-                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm transition-all"
+                        autoComplete="tel"
+                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm transition-all focus:bg-white"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Email Address</label>
-                      <input type="email" name="email" value={formData.email} onChange={handleChange}
+                      <label htmlFor="contact-email" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                        Email Address
+                      </label>
+                      <input
+                        id="contact-email"
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
                         placeholder="your@email.com"
-                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm transition-all"
+                        autoComplete="email"
+                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm transition-all focus:bg-white"
                       />
                     </div>
                   </div>
@@ -185,7 +259,7 @@ _Sent via Vasantha Iron Works Website_`;
                     <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">
                       Preferred Contact Method
                     </label>
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-3" role="radiogroup" aria-label="Preferred Contact Method">
                       {['Phone', 'WhatsApp', 'Email'].map(method => (
                         <label key={method} className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl border cursor-pointer transition-all text-sm font-semibold select-none ${
                           formData.contactMethod === method
@@ -209,12 +283,18 @@ _Sent via Vasantha Iron Works Website_`;
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                    <label htmlFor="contact-project-description" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
                       Project Description / Dimensions <span className="text-orange-600">*</span>
                     </label>
-                    <textarea name="projectDescription" rows={4} value={formData.projectDescription} onChange={handleChange}
-                      placeholder="Describe your design preferences, dimensions, location, budget range, or any specific requirements..."
-                      className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm transition-all resize-none"
+                    <textarea
+                      id="contact-project-description"
+                      name="projectDescription"
+                      rows={4}
+                      value={formData.projectDescription}
+                      onChange={handleChange}
+                      required
+                      placeholder="Describe your design preferences, dimensions (e.g. 12ft width x 6ft height gate), location in Sri Lanka, or specific requirements..."
+                      className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm transition-all resize-none focus:bg-white"
                     />
                   </div>
 

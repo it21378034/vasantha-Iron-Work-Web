@@ -5,130 +5,197 @@ interface NavbarProps {
   onOpenQuoteModal?: () => void;
 }
 
+const NAV_LINKS = [
+  { name: 'Home', href: '#hero', id: 'hero' },
+  { name: 'About Us', href: '#about', id: 'about' },
+  { name: 'Services', href: '#services', id: 'services' },
+  { name: 'Our Work', href: '#gallery', id: 'gallery' },
+  { name: 'Why Us', href: '#why-choose-us', id: 'why-choose-us' },
+  { name: 'Process', href: '#process', id: 'process' },
+  { name: 'Contact', href: '#contact', id: 'contact' },
+];
+
 export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
+
+      // Scroll spy for active section
+      const sections = NAV_LINKS.map(l => document.getElementById(l.id));
+      const scrollPos = window.scrollY + 180;
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const sec = sections[i];
+        if (sec && sec.offsetTop <= scrollPos) {
+          setActiveSection(NAV_LINKS[i].id);
+          break;
+        }
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', href: '#hero' },
-    { name: 'About Us', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Our Work', href: '#gallery' },
-    { name: 'Why Us', href: '#why-choose-us' },
-    { name: 'Process', href: '#process' },
-    { name: 'Contact', href: '#contact' },
-  ];
+  // Close mobile drawer on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-slate-900/95 backdrop-blur-md border-b border-orange-500/20 py-3 shadow-xl'
-          : 'bg-gradient-to-b from-slate-950/90 to-transparent py-5'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Logo Section */}
-        <a href="#hero" className="flex items-center gap-3 group">
-          <div className="relative p-1 rounded-full bg-white shadow-md border border-orange-500/30 group-hover:border-orange-500 transition-all duration-300">
-            <img
-              src="/logo.png"
-              alt="Vasantha Iron Works Logo"
-              className="h-11 w-11 sm:h-13 sm:w-13 object-contain rounded-full"
-            />
-            <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-orange-500 rounded-full animate-ping opacity-75"></span>
-            <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-orange-500 rounded-full border-2 border-slate-900"></span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xl sm:text-2xl font-extrabold tracking-wider uppercase text-white group-hover:text-orange-400 transition-colors font-['Outfit']">
-              Vasantha
-            </span>
-            <span className="text-xs sm:text-sm font-semibold tracking-widest text-orange-400 uppercase -mt-1 font-['Space_Grotesk']">
-              Iron Works & Welding
-            </span>
-          </div>
-        </a>
+    <>
+      {/* Skip to Main Content Accessibility Link */}
+      <a
+        href="#hero"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-[100] px-4 py-2 bg-orange-600 text-white font-bold rounded-xl shadow-2xl focus:outline-none focus:ring-2 focus:ring-white"
+      >
+        Skip to main content
+      </a>
 
-        {/* Desktop Nav Links */}
-        <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="px-3.5 py-2 text-sm font-semibold text-slate-200 hover:text-orange-400 hover:bg-white/10 rounded-lg transition-all duration-200"
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
-
-        {/* CTA Button */}
-        <div className="hidden lg:flex items-center space-x-4">
-          <a
-            href="#contact"
-            onClick={onOpenQuoteModal}
-            className="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold tracking-wide text-white uppercase bg-gradient-to-r from-orange-600 via-amber-500 to-orange-500 rounded-xl shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300 group overflow-hidden"
-          >
-            <Flame className="w-4 h-4 mr-2 text-white animate-pulse" />
-            <span>Get a Free Quote</span>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-slate-900/95 backdrop-blur-md border-b border-orange-500/20 py-3 shadow-xl'
+            : 'bg-gradient-to-b from-slate-950/90 to-transparent py-5'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          {/* Logo Section */}
+          <a href="#hero" className="flex items-center gap-3 group" aria-label="Vasantha Iron Works - Back to Top">
+            <div className="relative p-1 rounded-full bg-white shadow-md border border-orange-500/30 group-hover:border-orange-500 transition-all duration-300">
+              <img
+                src="/logo.png"
+                alt="Vasantha Iron Works Logo"
+                width={48}
+                height={48}
+                className="h-11 w-11 sm:h-13 sm:w-13 object-contain rounded-full"
+              />
+              <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-orange-500 rounded-full animate-ping opacity-75"></span>
+              <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-orange-500 rounded-full border-2 border-slate-900"></span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xl sm:text-2xl font-extrabold tracking-wider uppercase text-white group-hover:text-orange-400 transition-colors font-['Outfit']">
+                Vasantha
+              </span>
+              <span className="text-xs sm:text-sm font-semibold tracking-widest text-orange-400 uppercase -mt-1 font-['Space_Grotesk']">
+                Iron Works &amp; Welding
+              </span>
+            </div>
           </a>
-        </div>
 
-        {/* Mobile Hamburger Button */}
-        <div className="flex lg:hidden items-center space-x-3">
-          <a
-            href="#contact"
-            className="p-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 transition-colors"
-            aria-label="Get Quote"
-          >
-            <PhoneCall className="w-5 h-5" />
-          </a>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800 focus:outline-none border border-slate-700"
-            aria-label="Toggle Navigation Menu"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6 text-orange-400" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </div>
+          {/* Desktop Nav Links */}
+          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2" aria-label="Main Navigation">
+            {NAV_LINKS.map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all duration-200 ${
+                    isActive
+                      ? 'text-orange-400 bg-orange-500/10 font-bold border-b-2 border-orange-500'
+                      : 'text-slate-200 hover:text-orange-400 hover:bg-white/10'
+                  }`}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  {link.name}
+                </a>
+              );
+            })}
+          </nav>
 
-      {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-slate-900 border-b border-orange-500/30 px-4 pt-3 pb-6 space-y-2 shadow-2xl animate-fadeIn">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-3 rounded-lg text-base font-semibold text-slate-200 hover:text-orange-400 hover:bg-slate-800 border-l-2 border-transparent hover:border-orange-500 transition-all"
-            >
-              {link.name}
-            </a>
-          ))}
-          <div className="pt-3">
+          {/* CTA Button */}
+          <div className="hidden lg:flex items-center space-x-4">
             <a
               href="#contact"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                if (onOpenQuoteModal) onOpenQuoteModal();
-              }}
-              className="w-full flex items-center justify-center px-6 py-3.5 text-base font-bold text-white bg-gradient-to-r from-orange-600 to-amber-500 rounded-xl shadow-lg shadow-orange-500/30"
+              onClick={onOpenQuoteModal}
+              className="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold tracking-wide text-white uppercase bg-gradient-to-r from-orange-600 via-amber-500 to-orange-500 rounded-xl shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300 group overflow-hidden"
+              id="nav-quote-btn"
             >
-              <Flame className="w-5 h-5 mr-2 text-white" />
-              Get a Free Quote
+              <Flame className="w-4 h-4 mr-2 text-white animate-pulse" />
+              <span>Get a Free Quote</span>
             </a>
           </div>
+
+          {/* Mobile Hamburger Button */}
+          <div className="flex lg:hidden items-center space-x-3">
+            <a
+              href="#contact"
+              className="p-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 transition-colors"
+              aria-label="Contact Vasantha Iron Works"
+            >
+              <PhoneCall className="w-5 h-5" />
+            </a>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800 focus:outline-none border border-slate-700"
+              aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6 text-orange-400" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
-      )}
-    </header>
+
+        {/* Mobile Drawer Backdrop & Menu */}
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <div
+              className="fixed inset-0 top-[65px] bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            {/* Drawer */}
+            <div
+              id="mobile-nav"
+              className="relative z-50 lg:hidden bg-slate-900 border-b border-orange-500/30 px-4 pt-3 pb-6 space-y-2 shadow-2xl animate-fadeIn"
+            >
+              {NAV_LINKS.map((link) => {
+                const isActive = activeSection === link.id;
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block px-4 py-3 rounded-lg text-base font-semibold border-l-2 transition-all ${
+                      isActive
+                        ? 'text-orange-400 bg-slate-800/80 border-orange-500 font-bold'
+                        : 'text-slate-200 hover:text-orange-400 hover:bg-slate-800 border-transparent hover:border-orange-500'
+                    }`}
+                    aria-current={isActive ? 'page' : undefined}
+                  >
+                    {link.name}
+                  </a>
+                );
+              })}
+              <div className="pt-3">
+                <a
+                  href="#contact"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    if (onOpenQuoteModal) onOpenQuoteModal();
+                  }}
+                  className="w-full flex items-center justify-center px-6 py-3.5 text-base font-bold text-white bg-gradient-to-r from-orange-600 to-amber-500 rounded-xl shadow-lg shadow-orange-500/30"
+                >
+                  <Flame className="w-5 h-5 mr-2 text-white" />
+                  Get a Free Quote
+                </a>
+              </div>
+            </div>
+          </>
+        )}
+      </header>
+    </>
   );
 };

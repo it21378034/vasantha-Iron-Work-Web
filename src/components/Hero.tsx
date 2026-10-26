@@ -60,9 +60,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               </div>
             </div>
 
-            {/* Main Headline */}
-            <div className="space-y-2">
-              <h1 className="text-5xl sm:text-6xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.05] font-['Outfit']">
+            {/* Main Headline (Single Semantic H1 for SEO) */}
+            <h1 className="space-y-2 text-5xl sm:text-6xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.05] font-['Outfit']">
+              <span className="block">
                 Strong{' '}
                 <span
                   className="inline-block"
@@ -74,8 +74,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 >
                   Designs.
                 </span>
-              </h1>
-              <h1 className="text-5xl sm:text-6xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.05] font-['Outfit']">
+              </span>
+              <span className="block">
                 Expert{' '}
                 <span
                   className="inline-block"
@@ -87,8 +87,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 >
                   Craft.
                 </span>
-              </h1>
-              <h1 className="text-5xl sm:text-6xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.05] font-['Outfit']">
+              </span>
+              <span className="block">
                 Built to{' '}
                 <span className="relative inline-block">
                   <span className="relative z-10 text-white">Last.</span>
@@ -97,8 +97,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                     style={{ background: 'linear-gradient(90deg, #f97316, #fbbf24)' }}
                   />
                 </span>
-              </h1>
-            </div>
+              </span>
+            </h1>
 
             {/* Sub Description */}
             <p className="text-base sm:text-lg text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
@@ -177,7 +177,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 <div className="relative h-[380px] sm:h-[430px] overflow-hidden">
                   <img
                     src="/images/hero_welding.jpg"
-                    alt="Vasantha Iron Works Welder Arc Welding Steel Beam"
+                    alt="Vasantha Iron Works Professional Welder Arc Welding Heavy Steel Beam"
+                    width={600}
+                    height={430}
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     style={{ filter: 'brightness(0.85) contrast(1.1)' }}
                   />

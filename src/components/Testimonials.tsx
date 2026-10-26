@@ -39,20 +39,46 @@ export const Testimonials: React.FC = () => {
   ];
 
   useEffect(() => {
-    loadReviews();
+    let ignore = false;
+    fetchReviews()
+      .then((data) => {
+        if (!ignore) {
+          setReviews(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+        if (!ignore) {
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
   }, []);
 
-  const loadReviews = async () => {
-    setIsLoading(true);
-    try {
-      const data = await fetchReviews();
-      setReviews(data);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setIsLoading(false);
+  // Lock body scroll & enable Escape key to close review modal
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
-  };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isModalOpen) {
+        setIsModalOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isModalOpen]);
 
   const getInitials = (name: string) => {
     const parts = name.trim().split(' ');
@@ -97,7 +123,7 @@ export const Testimonials: React.FC = () => {
           comment: '',
         });
       }, 2000);
-    } catch (err) {
+    } catch {
       setError('Failed to submit review. Please try again.');
     } finally {
       setIsSubmitting(false);
