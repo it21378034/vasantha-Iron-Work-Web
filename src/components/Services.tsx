@@ -75,19 +75,19 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       title: 'Iron Grills',
       contactService: 'Iron Grills',
       category: 'security',
-      tagline: 'Anti-burglary strength & architectural appeal',
-      tag: 'High Security',
-      image: '/images/custom_window_grill_2.png',
-      description: 'Custom-built window security grills and boundary protection barriers fabricated from high-tensile solid steel bars. Engineered for ultimate residential burglary defense while seamlessly matching modern home aesthetics.',
+      tagline: 'Security Meets Architectural Beauty',
+      tag: 'Anti-Burglary',
+      image: '/images/iron_grill.jpg',
+      description: 'Solid steel window security grills and barrier frames built for maximum home defense while preserving natural light and architectural charm.',
       features: [
-        'Solid wrought & square bar steel',
-        'Multi-layer anti-rust primer finish',
+        'Solid square & wrought bar steel',
+        'Zinc-phosphate anti-rust primer finish',
         'Custom fittings for wood or concrete frames',
       ],
       specs: {
         material: 'Solid Mild Steel / 12mm–16mm Square Bars',
         finish: 'Zinc-Phosphate Anti-Rust Primer + Enamel Topcoat',
-        applications: 'Residential windows, balconies, veranda perimeter cages',
+        applications: 'Residential windows, balconies, veranda perimeter enclosures',
         warranty: '10-Year Structural Weld & Joint Integrity Assurance',
       },
       icon: Shield,
@@ -100,14 +100,14 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       title: 'Iron Gates',
       contactService: 'Gates',
       category: 'security',
-      tagline: 'Commanding entrances with smooth roller motion',
-      tag: 'Sliding & Swing',
+      tagline: 'Sliding, Swing & Folding Systems',
+      tag: 'Perimeter Security',
       image: '/images/custom_iron_gate.png',
-      description: 'Heavy-duty driveway entrance gates engineered with reinforced structural steel box sections, smooth ball-bearing ground tracks, and decorative metal plates. Built for maximum perimeter security.',
+      description: 'Heavy-duty driveway entrance gates fabricated with thick structural box tubing, smooth bearing rollers, and decorative steel panels.',
       features: [
-        'Heavy-gauge hollow box section framing',
-        'Smooth track rollers & heavy weld hinges',
-        'Weather-resistant matte black finish',
+        'Heavy structural steel box section framing',
+        'Smooth ground-track roller & hinge motion',
+        'Weatherproof matte black anti-corrosion coat',
       ],
       specs: {
         material: 'Structural Steel Box Tubing (2×2, 3×3) & Steel Plates',
@@ -125,14 +125,14 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       title: 'Roofing Structures',
       contactService: 'Roofing Structures',
       category: 'roofing',
-      tagline: 'Heavy-duty trusses engineered for tropical monsoons',
+      tagline: 'Engineered Trusses & Sheds',
       tag: 'Structural Steel',
-      image: '/images/cabana_roofing_w6.jpg',
-      description: 'Commercial, industrial, and residential structural steel roof trusses, factory sheds, arched canopies, and scenic cabana frameworks. Designed to endure high mountain winds and tropical downpours.',
+      image: '/images/roofing_structure.jpg',
+      description: 'Commercial sheds, residential roof trusses, and scenic cabana frames engineered to withstand mountain winds and heavy rainfall.',
       features: [
         'C-channel & GI pipe truss framing',
-        'Engineered wind & load resistance',
-        'Amano & Zincalume sheeting compatibility',
+        'High-load wind & storm resistance',
+        'Amano & Zincalume sheet roofing compatibility',
       ],
       specs: {
         material: 'Galvanized GI Tubing, C-Channels & Heavy Box Bars',
@@ -150,14 +150,14 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       title: 'Window Canopies',
       contactService: 'Window Canopies',
       category: 'roofing',
-      tagline: 'Sunshade & tropical rain shelter',
-      tag: 'Weather Shield',
+      tagline: 'Sun & Rain Weather Shield',
+      tag: 'Weather Protection',
       image: '/images/school_roof_site_view.jpg',
-      description: 'Sturdy steel-framed window awnings and entrance canopies that shield exterior windows and doorways against heavy rain intrusion and harsh sun glare.',
+      description: 'Durable steel-framed awnings and doorway canopies designed to shield exterior walls, doors, and windows from monsoons and UV glare.',
       features: [
-        'Weatherproof zinc-coated steel framing',
+        'Rigid all-weather steel framework',
         'Curved, pitched or modern minimalist profiles',
-        'Heavy-duty masonry anchor bracket mounts',
+        'Secure masonry anchor bracket mounting',
       ],
       specs: {
         material: 'Lightweight & High-Tensile Steel Profiles',
@@ -175,14 +175,14 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       title: 'Polycarbonate Roofing',
       contactService: 'Polycarbonate Roofing',
       category: 'roofing',
-      tagline: 'Modern translucent daylight canopies',
+      tagline: 'Translucent Daylight Canopies',
       tag: 'Natural Light',
       image: '/images/parking_roof.jpg',
-      description: 'Contemporary light-transmitting canopies combining impact-resistant multi-wall polycarbonate sheets with sleek welded steel box-frame supports for carports and verandas.',
+      description: 'Impact-resistant polycarbonate sheet canopies on sleek steel frames, perfect for carports, verandas, and outdoor relaxation patios.',
       features: [
-        'Blocks 99% harmful UV rays with soft light',
+        'Blocks 99% harmful UV with soft natural light',
         'Shatter-proof & high impact resistance',
-        'Ideal for car porches, verandas & patios',
+        'Ideal for car porches, verandas & terraces',
       ],
       specs: {
         material: 'Multi-wall Polycarbonate Sheets + Steel Box Section Framing',
@@ -200,12 +200,12 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       title: 'Gutter Service',
       contactService: 'Gutter Service',
       category: 'roofing',
-      tagline: 'Rainwater drainage & roof preservation',
-      tag: 'Water Drainage',
+      tagline: 'Rainwater Channels & Downpipes',
+      tag: 'Roof Drainage',
       image: '/images/school_roof_completed.jpg',
-      description: 'Comprehensive roof drainage solutions featuring heavy-duty Zincalume and PVC rain gutters, downspouts, and secure fascia brackets for leak-free rainwater redirection.',
+      description: 'Complete roof drainage systems featuring heavy-duty Zincalume and PVC rain gutters, downpipes, and leak-free bracket installation.',
       features: [
-        'Continuous high-flow gutter channels',
+        'High-volume continuous water flow channels',
         'Corrosion-proof brackets & downpipes',
         'Fascia board sealing & leak maintenance',
       ],
@@ -221,23 +221,23 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       glow: 'group-hover:border-teal-300',
     },
     {
-      id: 'airport-nets',
-      title: 'Airport Nets & Safety Mesh',
-      contactService: 'Airport Nets',
+      id: 'airport-mesh',
+      title: 'Airport Mesh & Safety Mesh',
+      contactService: 'Airport Mesh & Safety Mesh',
       category: 'security',
-      tagline: 'Perimeter barrier & bird-proofing',
-      tag: 'Perimeter Barrier',
-      image: '/images/custom_window_grill.png',
-      description: 'High-tensile wire mesh barriers and safety nets installed on rigid steel frames for bird deterrence, warehouse security, sports enclosures, and hazard protection.',
+      tagline: 'Perimeter Barrier & Safety Wire',
+      tag: 'Industrial Barrier',
+      image: '/images/airport_safety_mesh.jpg',
+      description: 'High-tensile galvanized wire mesh barriers and chain-link safety fencing installed on rigid steel frames and posts for industrial perimeters, airports, and secure boundaries.',
       features: [
-        'Heavy-gauge galvanized steel wire mesh',
-        'Rigid welded boundary perimeter frames',
-        'Weatherproof tension wire rigging',
+        'Heavy-gauge galvanized steel chain-link & wire mesh',
+        'Rigid welded boundary perimeter frames & posts',
+        'Weatherproof anti-rust tension wire rigging',
       ],
       specs: {
-        material: 'High-Tensile Galvanized Steel / Stainless Mesh',
-        finish: 'Hot-Dip Galvanized / Anti-Rust Primer',
-        applications: 'Warehouses, agricultural facilities, open skylights',
+        material: 'High-Tensile Galvanized Steel / PVC-Coated Wire Mesh',
+        finish: 'Hot-Dip Galvanized / Anti-Rust Weatherproof Coating',
+        applications: 'Airports, industrial perimeters, sports grounds, boundary enclosures',
         warranty: 'Sag-free tension and perimeter security guarantee',
       },
       icon: Plane,
@@ -250,13 +250,13 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       title: 'Ceilings & Wall Panelling',
       contactService: 'Ceilings & Wall Panelling',
       category: 'interiors',
-      tagline: 'Waterproof modern interior cladding',
-      tag: 'i-Panel Cladding',
+      tagline: 'Waterproof i-Panel PVC Systems',
+      tag: 'Modern Interiors',
       image: '/images/ceiling_project_completed.jpg',
-      description: 'Modern false ceilings and moisture-proof wall cladding using premium wood-grain i-Panel PVC boards, steel support skeletons, and integrated recessed LED lighting.',
+      description: 'Architectural false ceilings and moisture-proof wall cladding using wood-grain PVC i-Panels, steel subframes, and recessed LED lights.',
       features: [
-        '100% moisture, mold & termite resistant',
-        'Warm natural wood-grain aesthetics',
+        '100% moisture, mold & termite proof',
+        'Warm natural wood-grain aesthetic finish',
         'Concealed framing with neat LED downlights',
       ],
       specs: {
@@ -275,14 +275,14 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       title: 'Hand Railings',
       contactService: 'Hand Railings',
       category: 'interiors',
-      tagline: 'Safe, sleek & durable balustrades',
-      tag: 'Stair & Balcony',
-      image: '/images/hand_railing_project.jpg',
-      description: 'Custom architectural hand railings and balustrades for verandas, stairs, and balconies fabricated from solid steel or marine-grade stainless steel.',
+      tagline: 'Verandas, Stairs & Balconies',
+      tag: 'Fall Safety',
+      image: '/images/hand_railing.jpg',
+      description: 'Custom architectural hand railings and balustrades crafted from solid steel or 304-grade stainless steel for homes and commercial spaces.',
       features: [
-        'Child-safe vertical bar clearances',
-        'Optional integrated swing safety gates',
-        'Smooth polished welds & ergonomic handrails',
+        'Child-safe vertical bar spacing',
+        'Smooth polished welds & ergonomic rails',
+        'Stainless steel or powder-coated steel',
       ],
       specs: {
         material: 'Stainless Steel (304 grade) or Heavy Mild Steel Box Tubing',
@@ -297,17 +297,17 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
     },
     {
       id: 'custom-ironworks',
-      title: 'Custom Ironworks & Welding',
+      title: 'Custom Ironworks',
       contactService: 'Custom Ironworks & Welding',
       category: 'interiors',
-      tagline: 'Your unique vision, precision-welded',
-      tag: 'Bespoke Fabrication',
+      tagline: 'Bespoke Metal Fabrication',
+      tag: 'Made to Order',
       image: '/images/hero_welding.jpg',
-      description: 'Bespoke metal fabrication tailored to your custom architectural drawings or photos — from garden swing chairs and metal furniture to spiral stairs.',
+      description: 'Tailor-made metal craftsmanship built to your blueprints or reference photos — garden swing chairs, spiral stairs, and workshop tables.',
       features: [
-        'Built exactly to your blueprint or reference image',
-        'High-precision MIG and Arc welding joins',
-        'Long-lasting structural integrity',
+        'Crafted to your exact blueprint or photo',
+        'Precision MIG & Arc welding joints',
+        'Custom protective color coating',
       ],
       specs: {
         material: 'Mild Steel, Sheet Metal, Tubular Steel & Solid Bar',
@@ -461,9 +461,9 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                 key={svc.id}
                 className="group relative bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-orange-300/80 transition-all duration-300 flex flex-col justify-between overflow-hidden hover:-translate-y-1"
               >
-                {/* ── Top Photo Section ── */}
+                {/* ── Clean, Unobstructed Landscape Photo ── */}
                 <div 
-                  className="relative aspect-[16/10] overflow-hidden bg-slate-900 cursor-pointer"
+                  className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900 cursor-pointer"
                   onClick={() => setActiveModalService(svc)}
                   title={`View details for ${svc.title}`}
                 >
@@ -473,55 +473,52 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  {/* Subtle dark gradient overlay for text readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent pointer-events-none" />
 
-                  {/* Top-left Category & Tag Badges */}
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-white/90 backdrop-blur-md text-slate-900 shadow-sm">
+                  {/* Clean Top-Left Tag Badge */}
+                  <div className="absolute top-3.5 left-3.5 z-10">
+                    <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wide uppercase bg-slate-950/85 backdrop-blur-md text-white shadow-md border border-white/10">
                       {svc.tag}
                     </span>
                   </div>
 
-                  {/* Top-right "View Specs" Quick Pill */}
-                  <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-orange-600/90 backdrop-blur-md text-white shadow-md">
+                  {/* Top-Right "View Details" Pill on hover */}
+                  <div className="absolute top-3.5 right-3.5 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-orange-600 text-white shadow-md">
                       <Maximize2 className="w-3 h-3" />
                       <span>Details</span>
                     </span>
                   </div>
+                </div>
 
-                  {/* Bottom overlay: Floating Icon + Tagline */}
-                  <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between z-10">
-                    <div className="flex items-center gap-2.5">
-                      <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${svc.accent} flex items-center justify-center text-white shadow-lg shadow-black/30 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}>
+                {/* ── Card Content Body ── */}
+                <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    {/* Header: Icon + Title + Tagline */}
+                    <div className="flex items-start gap-3.5 mb-3">
+                      <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${svc.accent} flex items-center justify-center text-white shrink-0 shadow-md group-hover:scale-105 transition-transform duration-300`}>
                         <SvcIcon className="w-5 h-5" aria-hidden="true" />
                       </div>
-                      <div className="text-white">
-                        <p className="text-[11px] font-bold text-amber-300 uppercase tracking-wider drop-shadow-sm">
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-xl font-extrabold text-slate-900 font-['Outfit'] group-hover:text-orange-600 transition-colors leading-snug">
+                          {svc.title}
+                        </h3>
+                        <p className="text-xs font-semibold text-orange-600 tracking-wide mt-0.5">
                           {svc.tagline}
                         </p>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                {/* ── Card Content Body ── */}
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-xl font-extrabold text-slate-900 font-['Outfit'] mb-2 group-hover:text-orange-600 transition-colors">
-                      {svc.title}
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-2">
+                    {/* Clear, Complete Description */}
+                    <p className="text-slate-600 text-sm leading-relaxed mb-4">
                       {svc.description}
                     </p>
 
                     {/* Key Feature Bullets */}
-                    <div className="space-y-1.5 pt-2 border-t border-slate-100 mb-5">
+                    <div className="space-y-2 pt-2 border-t border-slate-100 mb-5">
                       {svc.features.map((feature, fIdx) => (
                         <div key={fIdx} className="flex items-center gap-2 text-xs text-slate-700">
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" aria-hidden="true" />
-                          <span className="truncate">{feature}</span>
+                          <span>{feature}</span>
                         </div>
                       ))}
                     </div>
@@ -541,7 +538,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                     <button
                       type="button"
                       onClick={() => setActiveModalService(svc)}
-                      className="px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs border border-slate-200 transition-colors cursor-pointer"
+                      className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs border border-slate-200 transition-colors cursor-pointer"
                       title="View specifications & material details"
                     >
                       Details

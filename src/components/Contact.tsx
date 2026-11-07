@@ -71,7 +71,7 @@ _Sent via Vasantha Iron Works Website_`;
     'Window Canopies',
     'Polycarbonate Roofing',
     'Gutter Service',
-    'Airport Nets',
+    'Airport Mesh & Safety Mesh',
     'Ceilings & Wall Panelling',
     'Hand Railings',
     'Custom Ironworks & Welding',
