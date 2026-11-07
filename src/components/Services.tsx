@@ -1,16 +1,95 @@
-import React from 'react';
-import { Shield, DoorOpen, Home, Layers, Flame, Wrench, Droplets, Sun, Plane, Umbrella } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { 
+  Shield, 
+  DoorOpen, 
+  Home, 
+  Layers, 
+  Flame, 
+  Wrench, 
+  Droplets, 
+  Sun, 
+  Plane, 
+  Umbrella,
+  CheckCircle2,
+  ArrowRight,
+  Search,
+  X,
+  Phone,
+  MessageSquare,
+  Sparkles,
+  Info,
+  Maximize2
+} from 'lucide-react';
 
 interface ServicesProps {
   onSelectService?: (name: string) => void;
 }
 
+interface ServiceItem {
+  id: string;
+  title: string;
+  contactService: string;
+  category: 'security' | 'roofing' | 'interiors';
+  tagline: string;
+  tag: string;
+  image: string;
+  description: string;
+  features: string[];
+  specs: {
+    material: string;
+    finish: string;
+    applications: string;
+    warranty: string;
+  };
+  icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' | 'false' }>;
+  accent: string;
+  badgeText: string;
+  glow: string;
+}
+
 export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
-  const services = [
+  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [activeModalService, setActiveModalService] = useState<ServiceItem | null>(null);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveModalService(null);
+    };
+    if (activeModalService) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeModalService]);
+
+  const services: ServiceItem[] = [
     {
       id: 'iron-grills',
       title: 'Iron Grills',
-      tagline: 'Security meets artistry',
+      contactService: 'Iron Grills',
+      category: 'security',
+      tagline: 'Anti-burglary strength & architectural appeal',
+      tag: 'High Security',
+      image: '/images/custom_window_grill_2.png',
+      description: 'Custom-built window security grills and boundary protection barriers fabricated from high-tensile solid steel bars. Engineered for ultimate residential burglary defense while seamlessly matching modern home aesthetics.',
+      features: [
+        'Solid wrought & square bar steel',
+        'Multi-layer anti-rust primer finish',
+        'Custom fittings for wood or concrete frames',
+      ],
+      specs: {
+        material: 'Solid Mild Steel / 12mm–16mm Square Bars',
+        finish: 'Zinc-Phosphate Anti-Rust Primer + Enamel Topcoat',
+        applications: 'Residential windows, balconies, veranda perimeter cages',
+        warranty: '10-Year Structural Weld & Joint Integrity Assurance',
+      },
       icon: Shield,
       accent: 'from-orange-500 to-amber-500',
       badgeText: 'text-orange-600',
@@ -19,7 +98,23 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
     {
       id: 'gates',
       title: 'Iron Gates',
-      tagline: 'Commanding entrances',
+      contactService: 'Gates',
+      category: 'security',
+      tagline: 'Commanding entrances with smooth roller motion',
+      tag: 'Sliding & Swing',
+      image: '/images/custom_iron_gate.png',
+      description: 'Heavy-duty driveway entrance gates engineered with reinforced structural steel box sections, smooth ball-bearing ground tracks, and decorative metal plates. Built for maximum perimeter security.',
+      features: [
+        'Heavy-gauge hollow box section framing',
+        'Smooth track rollers & heavy weld hinges',
+        'Weather-resistant matte black finish',
+      ],
+      specs: {
+        material: 'Structural Steel Box Tubing (2×2, 3×3) & Steel Plates',
+        finish: 'Weather-Shield Anti-Corrosion Primer + Matte Black Finish',
+        applications: 'Residential driveways, commercial perimeters, factory entrances',
+        warranty: 'Heavy-duty track & roller alignment guarantee',
+      },
       icon: DoorOpen,
       accent: 'from-amber-500 to-yellow-500',
       badgeText: 'text-amber-600',
@@ -28,7 +123,23 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
     {
       id: 'roofing-structures',
       title: 'Roofing Structures',
-      tagline: 'Engineered for durability',
+      contactService: 'Roofing Structures',
+      category: 'roofing',
+      tagline: 'Heavy-duty trusses engineered for tropical monsoons',
+      tag: 'Structural Steel',
+      image: '/images/cabana_roofing_w6.jpg',
+      description: 'Commercial, industrial, and residential structural steel roof trusses, factory sheds, arched canopies, and scenic cabana frameworks. Designed to endure high mountain winds and tropical downpours.',
+      features: [
+        'C-channel & GI pipe truss framing',
+        'Engineered wind & load resistance',
+        'Amano & Zincalume sheeting compatibility',
+      ],
+      specs: {
+        material: 'Galvanized GI Tubing, C-Channels & Heavy Box Bars',
+        finish: 'Zinc-Chromate Anti-Corrosion Primer',
+        applications: 'Houses, hotel cabanas, warehouses, commercial sheds',
+        warranty: 'Engineered wind load & structural guarantee',
+      },
       icon: Home,
       accent: 'from-blue-500 to-cyan-500',
       badgeText: 'text-blue-600',
@@ -37,7 +148,23 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
     {
       id: 'window-canopy',
       title: 'Window Canopies',
-      tagline: 'Sun & rain protection',
+      contactService: 'Window Canopies',
+      category: 'roofing',
+      tagline: 'Sunshade & tropical rain shelter',
+      tag: 'Weather Shield',
+      image: '/images/school_roof_site_view.jpg',
+      description: 'Sturdy steel-framed window awnings and entrance canopies that shield exterior windows and doorways against heavy rain intrusion and harsh sun glare.',
+      features: [
+        'Weatherproof zinc-coated steel framing',
+        'Curved, pitched or modern minimalist profiles',
+        'Heavy-duty masonry anchor bracket mounts',
+      ],
+      specs: {
+        material: 'Lightweight & High-Tensile Steel Profiles',
+        finish: 'Multi-layer all-weather enamel coating',
+        applications: 'Home windows, shop fronts, entrance doorways',
+        warranty: 'Leak-free perimeter flashing installation',
+      },
       icon: Umbrella,
       accent: 'from-indigo-500 to-blue-500',
       badgeText: 'text-indigo-600',
@@ -46,7 +173,23 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
     {
       id: 'polycarbonate-roofing',
       title: 'Polycarbonate Roofing',
-      tagline: 'Light-transmitting canopies',
+      contactService: 'Polycarbonate Roofing',
+      category: 'roofing',
+      tagline: 'Modern translucent daylight canopies',
+      tag: 'Natural Light',
+      image: '/images/parking_roof.jpg',
+      description: 'Contemporary light-transmitting canopies combining impact-resistant multi-wall polycarbonate sheets with sleek welded steel box-frame supports for carports and verandas.',
+      features: [
+        'Blocks 99% harmful UV rays with soft light',
+        'Shatter-proof & high impact resistance',
+        'Ideal for car porches, verandas & patios',
+      ],
+      specs: {
+        material: 'Multi-wall Polycarbonate Sheets + Steel Box Section Framing',
+        finish: 'Weatherproof EPDM rubber gaskets & waterproof sealants',
+        applications: 'Car porches, swimming pool decks, garden pergolas',
+        warranty: 'UV degradation & discoloration resistance',
+      },
       icon: Sun,
       accent: 'from-amber-500 to-orange-500',
       badgeText: 'text-orange-600',
@@ -55,7 +198,23 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
     {
       id: 'gutter-service',
       title: 'Gutter Service',
-      tagline: 'Rainwater drainage & pipes',
+      contactService: 'Gutter Service',
+      category: 'roofing',
+      tagline: 'Rainwater drainage & roof preservation',
+      tag: 'Water Drainage',
+      image: '/images/school_roof_completed.jpg',
+      description: 'Comprehensive roof drainage solutions featuring heavy-duty Zincalume and PVC rain gutters, downspouts, and secure fascia brackets for leak-free rainwater redirection.',
+      features: [
+        'Continuous high-flow gutter channels',
+        'Corrosion-proof brackets & downpipes',
+        'Fascia board sealing & leak maintenance',
+      ],
+      specs: {
+        material: 'Zincalume / Colorbond / Heavy-Gauge PVC',
+        finish: 'Color-matched anti-corrosion coating',
+        applications: 'Residential roofs, multi-pitch villas, factory sheds',
+        warranty: 'Leak-tested joints & overflow assurance',
+      },
       icon: Droplets,
       accent: 'from-teal-500 to-emerald-500',
       badgeText: 'text-teal-600',
@@ -63,8 +222,24 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
     },
     {
       id: 'airport-nets',
-      title: 'Airport Nets',
-      tagline: 'Safety & bird barrier mesh',
+      title: 'Airport Nets & Safety Mesh',
+      contactService: 'Airport Nets',
+      category: 'security',
+      tagline: 'Perimeter barrier & bird-proofing',
+      tag: 'Perimeter Barrier',
+      image: '/images/custom_window_grill.png',
+      description: 'High-tensile wire mesh barriers and safety nets installed on rigid steel frames for bird deterrence, warehouse security, sports enclosures, and hazard protection.',
+      features: [
+        'Heavy-gauge galvanized steel wire mesh',
+        'Rigid welded boundary perimeter frames',
+        'Weatherproof tension wire rigging',
+      ],
+      specs: {
+        material: 'High-Tensile Galvanized Steel / Stainless Mesh',
+        finish: 'Hot-Dip Galvanized / Anti-Rust Primer',
+        applications: 'Warehouses, agricultural facilities, open skylights',
+        warranty: 'Sag-free tension and perimeter security guarantee',
+      },
       icon: Plane,
       accent: 'from-sky-500 to-blue-600',
       badgeText: 'text-sky-600',
@@ -73,7 +248,23 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
     {
       id: 'ceiling-structures',
       title: 'Ceilings & Wall Panelling',
-      tagline: 'Modern interior cladding',
+      contactService: 'Ceilings & Wall Panelling',
+      category: 'interiors',
+      tagline: 'Waterproof modern interior cladding',
+      tag: 'i-Panel Cladding',
+      image: '/images/ceiling_project_completed.jpg',
+      description: 'Modern false ceilings and moisture-proof wall cladding using premium wood-grain i-Panel PVC boards, steel support skeletons, and integrated recessed LED lighting.',
+      features: [
+        '100% moisture, mold & termite resistant',
+        'Warm natural wood-grain aesthetics',
+        'Concealed framing with neat LED downlights',
+      ],
+      specs: {
+        material: 'Premium PVC i-Panel Sheets + Galvanized Metal Studs',
+        finish: 'Textured Wood-Grain / Matte Interior Finishes',
+        applications: 'Living rooms, damp wall restoration, office lobbies',
+        warranty: 'Moisture barrier & termite-free guarantee',
+      },
       icon: Layers,
       accent: 'from-violet-500 to-purple-500',
       badgeText: 'text-violet-600',
@@ -82,7 +273,23 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
     {
       id: 'hand-railings',
       title: 'Hand Railings',
-      tagline: 'Safe, sleek, long-lasting',
+      contactService: 'Hand Railings',
+      category: 'interiors',
+      tagline: 'Safe, sleek & durable balustrades',
+      tag: 'Stair & Balcony',
+      image: '/images/hand_railing_project.jpg',
+      description: 'Custom architectural hand railings and balustrades for verandas, stairs, and balconies fabricated from solid steel or marine-grade stainless steel.',
+      features: [
+        'Child-safe vertical bar clearances',
+        'Optional integrated swing safety gates',
+        'Smooth polished welds & ergonomic handrails',
+      ],
+      specs: {
+        material: 'Stainless Steel (304 grade) or Heavy Mild Steel Box Tubing',
+        finish: 'Brushed Stainless / Matte Black Powder Coat',
+        applications: 'Verandas, internal staircases, roof terraces',
+        warranty: 'Wobble-free anchor mounting guarantee',
+      },
       icon: Wrench,
       accent: 'from-emerald-500 to-teal-500',
       badgeText: 'text-emerald-600',
@@ -90,8 +297,24 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
     },
     {
       id: 'custom-ironworks',
-      title: 'Custom Ironworks',
-      tagline: 'Your vision, precision-welded',
+      title: 'Custom Ironworks & Welding',
+      contactService: 'Custom Ironworks & Welding',
+      category: 'interiors',
+      tagline: 'Your unique vision, precision-welded',
+      tag: 'Bespoke Fabrication',
+      image: '/images/hero_welding.jpg',
+      description: 'Bespoke metal fabrication tailored to your custom architectural drawings or photos — from garden swing chairs and metal furniture to spiral stairs.',
+      features: [
+        'Built exactly to your blueprint or reference image',
+        'High-precision MIG and Arc welding joins',
+        'Long-lasting structural integrity',
+      ],
+      specs: {
+        material: 'Mild Steel, Sheet Metal, Tubular Steel & Solid Bar',
+        finish: 'Custom Color Primer & High-Gloss / Matte Finish',
+        applications: 'Outdoor swings, custom worktables, bespoke decor',
+        warranty: '100% craftsmanship satisfaction guarantee',
+      },
       icon: Flame,
       accent: 'from-rose-500 to-orange-500',
       badgeText: 'text-rose-600',
@@ -99,97 +322,448 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
     },
   ];
 
+  const categories = [
+    { id: 'all', label: 'All Services', count: services.length },
+    { id: 'security', label: 'Perimeter & Gates', count: services.filter(s => s.category === 'security').length },
+    { id: 'roofing', label: 'Roofing & Canopies', count: services.filter(s => s.category === 'roofing').length },
+    { id: 'interiors', label: 'Interiors & Railings', count: services.filter(s => s.category === 'interiors').length },
+  ];
+
+  // Filtering by category and search
+  const filteredServices = services.filter((svc) => {
+    const matchesCategory = activeCategory === 'all' || svc.category === activeCategory;
+    const query = searchQuery.trim().toLowerCase();
+    const matchesSearch = !query || 
+      svc.title.toLowerCase().includes(query) ||
+      svc.tagline.toLowerCase().includes(query) ||
+      svc.description.toLowerCase().includes(query) ||
+      svc.tag.toLowerCase().includes(query);
+    return matchesCategory && matchesSearch;
+  });
+
+  const handleSelect = (serviceTitle: string) => {
+    if (onSelectService) {
+      onSelectService(serviceTitle);
+    } else {
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  const buildServiceWhatsAppUrl = (svcTitle: string) => {
+    const msg = `Hello Vasantha Iron Works, I am interested in your *${svcTitle}* service. Could you please provide me with more details and a free quotation?`;
+    return `https://wa.me/94763207873?text=${encodeURIComponent(msg)}`;
+  };
+
   return (
     <section id="services" className="py-24 bg-slate-50 relative overflow-hidden" aria-labelledby="services-heading">
-      {/* Decorative background */}
+      {/* Decorative background grid */}
       <div
-        className="absolute inset-0 opacity-[0.025] pointer-events-none"
-        style={{ backgroundImage: 'radial-gradient(#94a3b8 1px, transparent 1px)', backgroundSize: '32px 32px' }}
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{ backgroundImage: 'radial-gradient(#0f172a 1px, transparent 1px)', backgroundSize: '32px 32px' }}
         aria-hidden="true"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* ─── Header ─── */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="section-badge mb-4">
             <Flame className="w-3.5 h-3.5" aria-hidden="true" />
-            What We Offer
+            What We Fabricate & Install
           </div>
-          <h2 id="services-heading" className="text-4xl sm:text-5xl font-extrabold text-slate-900 mb-4 font-['Outfit']">
+          <h2 id="services-heading" className="text-4xl sm:text-5xl font-extrabold text-slate-900 mb-4 font-['Outfit'] tracking-tight">
             Our <span className="text-orange-gradient">Ironworks</span> Services
           </h2>
-          <p className="text-slate-600 text-lg">
-            Precision arc welding and heavy-duty steel fabrication — tailored for residential, commercial, and industrial clients.
+          <p className="text-slate-600 text-base sm:text-lg">
+            Certified arc welding, structural steel frameworks, and decorative architectural ironworks — built with heavy-gauge steel for long-lasting durability across Sri Lanka.
           </p>
         </div>
 
-        {/* ─── Services Card Grid (No Photos, Icon Badge Top-Right + Title & Tagline) ─── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-          {services.map((svc) => {
+        {/* ─── User-Friendly Controls: Category Tabs & Search Bar ─── */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 bg-white p-3 sm:p-4 rounded-2xl border border-slate-200/80 shadow-sm">
+          
+          {/* Category Filter Pills */}
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 w-full md:w-auto">
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`text-xs sm:text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+                    isActive
+                      ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white shadow-md shadow-orange-500/20'
+                      : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700'
+                  }`}
+                  aria-pressed={isActive}
+                >
+                  <span>{cat.label}</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${isActive ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600'}`}>
+                    {cat.count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Quick Search Input */}
+          <div className="relative w-full md:w-72">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search services (e.g. gates, roofs)..."
+              className="w-full pl-9.5 pr-8 py-2 rounded-xl text-xs sm:text-sm bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white text-slate-800 transition-all"
+              aria-label="Filter ironworks services"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
+                aria-label="Clear search"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* ─── Zero Results State ─── */}
+        {filteredServices.length === 0 && (
+          <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 p-8 my-6">
+            <Info className="w-10 h-10 text-orange-500 mx-auto mb-3" />
+            <h3 className="text-lg font-bold text-slate-900 mb-1">No matching services found</h3>
+            <p className="text-slate-500 text-sm mb-4">
+              We couldn't find any ironworks service matching &ldquo;{searchQuery}&rdquo;.
+            </p>
+            <button
+              type="button"
+              onClick={() => { setActiveCategory('all'); setSearchQuery(''); }}
+              className="btn-primary text-xs py-2.5 px-5"
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
+
+        {/* ─── Services Visual Cards Grid ─── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+          {filteredServices.map((svc) => {
             const SvcIcon = svc.icon;
             return (
-              <a
+              <div
                 key={svc.id}
-                href="#contact"
-                onClick={() => onSelectService && onSelectService(svc.title)}
-                className={`group relative bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm hover:shadow-xl ${svc.glow} hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between min-h-[190px] overflow-hidden cursor-pointer`}
-                aria-label={`${svc.title} – ${svc.tagline}`}
+                className="group relative bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-orange-300/80 transition-all duration-300 flex flex-col justify-between overflow-hidden hover:-translate-y-1"
               >
-                {/* Subtle top ambient glow */}
-                <div
-                  className={`absolute -top-12 -right-12 w-28 h-28 rounded-full bg-gradient-to-br ${svc.accent} opacity-10 group-hover:opacity-20 blur-xl transition-opacity duration-300 pointer-events-none`}
-                  aria-hidden="true"
-                />
+                {/* ── Top Photo Section ── */}
+                <div 
+                  className="relative aspect-[16/10] overflow-hidden bg-slate-900 cursor-pointer"
+                  onClick={() => setActiveModalService(svc)}
+                  title={`View details for ${svc.title}`}
+                >
+                  <img
+                    src={svc.image}
+                    alt={`${svc.title} by Vasantha Iron Works`}
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  {/* Subtle dark gradient overlay for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent pointer-events-none" />
 
-                {/* Top Row: 🔶 Gradient Icon Badge (top-right corner) */}
-                <div className="flex items-start justify-end w-full">
-                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${svc.accent} flex items-center justify-center shadow-md shadow-slate-200 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
-                    <SvcIcon className="w-6 h-6 text-white" aria-hidden="true" />
+                  {/* Top-left Category & Tag Badges */}
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-white/90 backdrop-blur-md text-slate-900 shadow-sm">
+                      {svc.tag}
+                    </span>
+                  </div>
+
+                  {/* Top-right "View Specs" Quick Pill */}
+                  <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-orange-600/90 backdrop-blur-md text-white shadow-md">
+                      <Maximize2 className="w-3 h-3" />
+                      <span>Details</span>
+                    </span>
+                  </div>
+
+                  {/* Bottom overlay: Floating Icon + Tagline */}
+                  <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between z-10">
+                    <div className="flex items-center gap-2.5">
+                      <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${svc.accent} flex items-center justify-center text-white shadow-lg shadow-black/30 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}>
+                        <SvcIcon className="w-5 h-5" aria-hidden="true" />
+                      </div>
+                      <div className="text-white">
+                        <p className="text-[11px] font-bold text-amber-300 uppercase tracking-wider drop-shadow-sm">
+                          {svc.tagline}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                {/* Bottom Row: 📝 Title + Tagline */}
-                <div className="mt-6 z-10">
-                  <p className={`text-[11px] font-bold uppercase tracking-wider ${svc.badgeText} mb-1.5`}>
-                    {svc.tagline}
-                  </p>
-                  <h3 className="text-lg font-extrabold text-slate-900 font-['Outfit'] leading-tight group-hover:text-orange-600 transition-colors">
-                    {svc.title}
-                  </h3>
+                {/* ── Card Content Body ── */}
+                <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-xl font-extrabold text-slate-900 font-['Outfit'] mb-2 group-hover:text-orange-600 transition-colors">
+                      {svc.title}
+                    </h3>
+                    <p className="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-2">
+                      {svc.description}
+                    </p>
 
-                  {/* Bottom accent pill */}
-                  <div className={`mt-3 h-1 w-6 rounded-full bg-gradient-to-r ${svc.accent} group-hover:w-12 transition-all duration-300`} aria-hidden="true" />
+                    {/* Key Feature Bullets */}
+                    <div className="space-y-1.5 pt-2 border-t border-slate-100 mb-5">
+                      {svc.features.map((feature, fIdx) => (
+                        <div key={fIdx} className="flex items-center gap-2 text-xs text-slate-700">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" aria-hidden="true" />
+                          <span className="truncate">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* ── Card Action Buttons (Quote & Specs) ── */}
+                  <div className="pt-2 flex items-center gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => handleSelect(svc.contactService)}
+                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs shadow-md shadow-orange-600/20 transition-all cursor-pointer group/btn"
+                    >
+                      <span>Request Quote</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setActiveModalService(svc)}
+                      className="px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs border border-slate-200 transition-colors cursor-pointer"
+                      title="View specifications & material details"
+                    >
+                      Details
+                    </button>
+                  </div>
                 </div>
-              </a>
+              </div>
             );
           })}
         </div>
 
+        {/* ─── Quality & Trust Pillars ─── */}
+        <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-slate-900">Custom Dimensions</p>
+              <p className="text-[11px] text-slate-500">Fabricated to exact millimetres</p>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+              <Shield className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-slate-900">Anti-Rust Primer</p>
+              <p className="text-[11px] text-slate-500">Zinc phosphate weather protection</p>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-slate-900">Free Site Visit</p>
+              <p className="text-[11px] text-slate-500">Bandarawela & surrounding areas</p>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+              <Phone className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-slate-900">Fast 24h Quotation</p>
+              <p className="text-[11px] text-slate-500">Itemized transparent pricing</p>
+            </div>
+          </div>
+        </div>
+
         {/* ─── Bottom CTA Banner ─── */}
-        <div className="mt-14 rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+        <div className="mt-10 rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-slate-800 relative overflow-hidden shadow-2xl">
           <div
-            className="absolute inset-0 opacity-10"
+            className="absolute inset-0 opacity-15"
             style={{ backgroundImage: 'radial-gradient(rgba(249,115,22,0.4) 1px, transparent 1px)', backgroundSize: '24px 24px' }}
             aria-hidden="true"
           />
-          <div className="relative flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="relative flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
             <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/20 text-orange-400 text-xs font-bold mb-3 border border-orange-500/30">
+                <Flame className="w-3.5 h-3.5" />
+                <span>Need a Custom Size or Unique Design?</span>
+              </div>
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 font-['Outfit']">
-                Need a Custom Ironwork Design?
+                Have a Blueprint or Photo of What You Want?
               </h3>
-              <p className="text-slate-300 text-sm max-w-lg">
-                Tell us your vision — dimensions, design style, and location. We'll create a detailed quotation within 24 hours.
+              <p className="text-slate-300 text-sm max-w-xl">
+                Send us your sketch, site measurements, or reference photo. We calculate exact steel gauges and provide a transparent quotation within 24 hours.
               </p>
             </div>
-            <a href="#contact" className="btn-primary flex-shrink-0 text-sm px-8 py-4">
-              <Flame className="w-4 h-4" aria-hidden="true" />
-              <span>Get Free Quote</span>
-            </a>
+            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
+              <a 
+                href="#contact" 
+                onClick={() => handleSelect('Custom Ironworks & Welding')}
+                className="btn-primary text-sm px-7 py-3.5 w-full sm:w-auto justify-center"
+              >
+                <Flame className="w-4 h-4" aria-hidden="true" />
+                <span>Get Free Quotation</span>
+              </a>
+              <a
+                href="https://wa.me/94763207873?text=Hello%20Vasantha%20Iron%20Works,%20I%20have%20a%20custom%20fabrication%20requirement."
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 transition-all hover:scale-105 w-full sm:w-auto"
+              >
+                <MessageSquare className="w-4 h-4" />
+                <span>WhatsApp Us</span>
+              </a>
+            </div>
           </div>
         </div>
 
       </div>
+
+      {/* ─── Service Detail Modal (User-Friendly Specs & Direct Quote) ─── */}
+      {activeModalService && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="service-modal-title"
+          onClick={() => setActiveModalService(null)}
+        >
+          <div 
+            className="relative bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Image Header */}
+            <div className="relative h-60 sm:h-72 w-full bg-slate-900 overflow-hidden">
+              <img
+                src={activeModalService.image}
+                alt={activeModalService.title}
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
+              
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setActiveModalService(null)}
+                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-all cursor-pointer z-10"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Title & Tag in Header */}
+              <div className="absolute bottom-4 left-6 right-6 text-white">
+                <span className="px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-orange-600 text-white mb-2 inline-block">
+                  {activeModalService.tag}
+                </span>
+                <h3 id="service-modal-title" className="text-2xl sm:text-3xl font-extrabold font-['Outfit']">
+                  {activeModalService.title}
+                </h3>
+                <p className="text-amber-300 text-xs sm:text-sm font-medium mt-0.5">
+                  {activeModalService.tagline}
+                </p>
+              </div>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 sm:p-8 space-y-6">
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Service Overview</h4>
+                <p className="text-slate-700 text-sm sm:text-base leading-relaxed">
+                  {activeModalService.description}
+                </p>
+              </div>
+
+              {/* Technical Specifications */}
+              <div className="bg-slate-50 rounded-2xl p-4 sm:p-5 border border-slate-200">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3 flex items-center gap-2">
+                  <Wrench className="w-4 h-4 text-orange-600" />
+                  Technical Specifications & Materials
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div className="bg-white p-3 rounded-xl border border-slate-200/60">
+                    <p className="font-semibold text-slate-500 uppercase text-[10px] mb-1">Standard Materials</p>
+                    <p className="text-slate-800 font-medium">{activeModalService.specs.material}</p>
+                  </div>
+                  <div className="bg-white p-3 rounded-xl border border-slate-200/60">
+                    <p className="font-semibold text-slate-500 uppercase text-[10px] mb-1">Surface Finish</p>
+                    <p className="text-slate-800 font-medium">{activeModalService.specs.finish}</p>
+                  </div>
+                  <div className="bg-white p-3 rounded-xl border border-slate-200/60">
+                    <p className="font-semibold text-slate-500 uppercase text-[10px] mb-1">Common Applications</p>
+                    <p className="text-slate-800 font-medium">{activeModalService.specs.applications}</p>
+                  </div>
+                  <div className="bg-white p-3 rounded-xl border border-slate-200/60">
+                    <p className="font-semibold text-slate-500 uppercase text-[10px] mb-1">Quality Assurance</p>
+                    <p className="text-slate-800 font-medium">{activeModalService.specs.warranty}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Key Benefits */}
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3">Key Highlights</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  {activeModalService.features.map((feat, idx) => (
+                    <div key={idx} className="flex items-start gap-2 text-xs text-slate-700 bg-emerald-50/60 border border-emerald-100 p-2.5 rounded-xl">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Modal CTAs */}
+              <div className="pt-2 flex flex-col sm:flex-row items-center gap-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const svc = activeModalService.contactService;
+                    setActiveModalService(null);
+                    handleSelect(svc);
+                  }}
+                  className="w-full sm:flex-1 btn-primary py-3 px-6 text-xs sm:text-sm font-bold justify-center cursor-pointer"
+                >
+                  <Flame className="w-4 h-4" />
+                  <span>Request Quote for {activeModalService.title}</span>
+                </button>
+
+                <a
+                  href={buildServiceWhatsAppUrl(activeModalService.title)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-emerald-600/30 transition-all cursor-pointer"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span>WhatsApp Inquiry</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
     </section>
   );
 };
