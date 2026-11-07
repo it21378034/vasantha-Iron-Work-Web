@@ -152,7 +152,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       category: 'roofing',
       tagline: 'Sun & Rain Weather Shield',
       tag: 'Weather Protection',
-      image: '/images/school_roof_site_view.jpg',
+      image: '/images/service_window_canopy.jpg',
       description: 'Durable steel-framed awnings and doorway canopies designed to shield exterior walls, doors, and windows from monsoons and UV glare.',
       features: [
         'Rigid all-weather steel framework',
@@ -177,7 +177,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       category: 'roofing',
       tagline: 'Translucent Daylight Canopies',
       tag: 'Natural Light',
-      image: '/images/parking_roof.jpg',
+      image: '/images/service_polycarbonate_roofing.jpg',
       description: 'Impact-resistant polycarbonate sheet canopies on sleek steel frames, perfect for carports, verandas, and outdoor relaxation patios.',
       features: [
         'Blocks 99% harmful UV with soft natural light',
@@ -202,7 +202,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       category: 'roofing',
       tagline: 'Rainwater Channels & Downpipes',
       tag: 'Roof Drainage',
-      image: '/images/school_roof_completed.jpg',
+      image: '/images/service_gutter_system.jpg',
       description: 'Complete roof drainage systems featuring heavy-duty Zincalume and PVC rain gutters, downpipes, and leak-free bracket installation.',
       features: [
         'High-volume continuous water flow channels',
@@ -302,7 +302,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       category: 'interiors',
       tagline: 'Bespoke Metal Fabrication',
       tag: 'Made to Order',
-      image: '/images/hero_welding.jpg',
+      image: '/images/service_custom_ironworks.jpg',
       description: 'Tailor-made metal craftsmanship built to your blueprints or reference photos — garden swing chairs, spiral stairs, and workshop tables.',
       features: [
         'Crafted to your exact blueprint or photo',
