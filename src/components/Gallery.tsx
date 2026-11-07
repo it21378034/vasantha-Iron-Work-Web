@@ -88,6 +88,7 @@ export const Gallery: React.FC = () => {
 
   const categories = [
     { label: 'All Projects', value: 'all' },
+    { label: 'Solar & Safety Mesh', value: 'solar-guards' },
     { label: 'Gates', value: 'gates' },
     { label: 'Iron Grills', value: 'grills' },
     { label: 'Roofing', value: 'roofing' },
@@ -97,6 +98,25 @@ export const Gallery: React.FC = () => {
   ];
 
   const items: GalleryItem[] = [
+    {
+      id: 18,
+      title: 'Rooftop Solar Water Heater Anti-Monkey Protective Guard Cage',
+      category: 'Solar & Safety Mesh',
+      slug: 'solar-guards',
+      image: '/images/solar_guard_overview.jpg',
+      photos: [
+        '/images/solar_guard_overview.jpg',
+        '/images/solar_guard_tank_side.jpg',
+        '/images/solar_guard_mesh_top.jpg',
+      ],
+      photoCaptions: [
+        'Full Roof Perspective — Red Protective Welded Steel Frame & Safety Mesh Enclosing Solar System',
+        'Heating Tank Enclosure — Rigid Steel Box Structure Protecting Sunbird Solar Water Heater Tank',
+        'Top Grid View — High-Tensile Galvanized Wire Mesh Guard Over Solar Glass Vacuum Tubes',
+      ],
+      description: 'A custom-engineered heavy-duty steel safety cage and galvanized wire mesh enclosure built to protect rooftop solar hot water glass vacuum tubes and heating tanks against monkey attacks, falling debris, and wildlife damage without blocking solar absorption.',
+      tag: 'Anti-Monkey Guard',
+    },
     { id: 1, title: 'Custom Matte Black Main Entrance Gate', category: 'Gates', slug: 'gates', image: '/images/custom_iron_gate.png', description: 'A custom-built double-swing main entrance driveway gate fabricated from heavy structural steel tubing and plates. Finished with a weather-resistant matte black coating, it features decorative 3D geometric pyramid panels, chrome boss accents, sturdy vertical security bars, and solid welded latch handles for maximum residential boundary protection.', tag: 'Heavy Gauge Steel' },
     { id: 15, title: 'Green Corrugated Steel Sliding Gate', category: 'Gates', slug: 'gates', image: '/images/gate_green_sliding.jpg', description: 'A heavy-duty sliding gate fabricated from corrugated green steel sheets mounted on a solid black steel box-section frame. Features smooth bottom roller wheels on a ground track rail for effortless sliding operation. Designed to provide maximum security and weather resistance for residential and commercial driveways.', tag: 'Sliding Gate' },
     { id: 16, title: 'Black Corrugated Steel Double Swing Gate', category: 'Gates', slug: 'gates', image: '/images/gate_black_double.jpg', description: 'A robust double-leaf swing gate constructed from black corrugated steel sheets within a reinforced black steel frame. Fitted with heavy-duty hinges, a central latch bolt lock, and decorative chrome handles. Installed between stone walls, this gate offers strong perimeter security with a clean, bold aesthetic finish.', tag: 'Double Swing' },
